@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Recepciones</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      [(ngModel)]="busqueda"
+      placeholder="Buscar por lote, cliente, fecha..."
+      debounce="300">
+    </ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="filtroTurno">
+      <ion-segment-button value="">Todos</ion-segment-button>
+      <ion-segment-button value="A">Turno A</ion-segment-button>
+      <ion-segment-button value="B">Turno B</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="cargar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Sin resultados -->
+  <ion-item *ngIf="remisionesFiltradas.length === 0" lines="none" class="ion-text-center ion-padding">
+    <ion-label color="medium">Sin remisiones registradas</ion-label>
+  </ion-item>
+
+  <!-- Card por remisión -->
+  <ion-card *ngFor="let r of remisionesFiltradas">
+
+    <!-- Encabezado del card (siempre visible) -->
+    <ion-item lines="none" (click)="toggleExpandir(r)" button>
+      <ion-icon name="boat-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h2><strong>{{ r.loteInterno }}</strong></h2>
+        <p>{{ r.nombreCliente }} · {{ r.nombreFinca }} · {{ r.nombreLaguna }}</p>
+        <p>{{ r.fecha }} — Turno {{ r.turno }}</p>
+      </ion-label>
+      <!-- Badge de bins pendientes -->
+      <ion-badge *ngIf="binsPendientes(r) > 0" color="warning" slot="end">
+        {{ binsPendientes(r) }} bin{{ binsPendientes(r) > 1 ? 's' : '' }}
+      </ion-badge>
+      <ion-icon [name]="r.expandida ? 'chevron-up-outline' : 'chevron-down-outline'" slot="end"></ion-icon>
+    </ion-item>
+
+    <!-- Detalle expandible -->
+    <ion-card-content *ngIf="r.expandida">
+
+      <!-- Info del lote -->
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="calendar-outline" slot="start" color="medium"></ion-icon>
+          <ion-label>
+            <p>Cosecha: {{ r.fechaCosecha }} a las {{ r.horaCosecha }}</p>
+            <p>Recibido: {{ r.horaRecibido }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="r.observaciones">
+          <ion-icon name="chatbox-outline" slot="start" color="medium"></ion-icon>
+          <ion-label><p>{{ r.observaciones }}</p></ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- Lista de Bins -->
+      <ion-list-header>
+        <ion-label>Bins ({{ r.bins.length }})</ion-label>
+        <ion-button *ngIf="todosProcesados(r)" fill="clear" size="small" color="success" (click)="verRemision(r.id!)">
+          <ion-icon name="eye-outline" slot="start"></ion-icon>
+          Ver
+        </ion-button>
+        <ion-button fill="clear" size="small" (click)="editarRemision(r.id!)">
+          <ion-icon name="create-outline" slot="start"></ion-icon>
+          Editar
+        </ion-button>
+      </ion-list-header>
+
+      <!-- Sin bins -->
+      <ion-item *ngIf="r.bins.length === 0" lines="none">
+        <ion-label color="medium" class="ion-text-center">Sin bins registrados</ion-label>
+      </ion-item>
+
+      <!-- Cada bin -->
+      <ion-item *ngFor="let b of r.bins" [color]="b.estado === 'procesado' ? '' : 'light'">
+        <ion-icon
+          [name]="b.estado === 'procesado' ? 'checkmark-circle-outline' : 'time-outline'"
+          [color]="b.estado === 'procesado' ? 'success' : 'warning'"
+          slot="start">
+        </ion-icon>
+        <ion-label>
+          <h3>{{ b.numeroBin }}</h3>
+          <p>{{ b.cantidadLibras | number }} lbs</p>
+          <p *ngIf="b.estado === 'procesado'">Procesado: {{ b.horaInicioProceso }}</p>
+        </ion-label>
+        <!-- Botón Procesar -->
+        <ion-button
+          *ngIf="b.estado === 'pendiente'"
+          fill="solid"
+          color="warning"
+          size="small"
+          slot="end"
+          (click)="procesarBin(b, r)">
+          <ion-icon name="play-circle-outline" slot="start"></ion-icon>
+          Procesar
+        </ion-button>
+        <ion-chip *ngIf="b.estado === 'procesado'" color="success" slot="end">
+          <ion-icon name="checkmark-outline"></ion-icon>
+          <ion-label>OK</ion-label>
+        </ion-chip>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="nueva()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

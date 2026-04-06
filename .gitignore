@@ -1,0 +1,17 @@
+# Angular build cache
+TrazApp/.angular/
+
+# Node modules
+TrazApp/node_modules/
+node_modules/
+
+# Angular dist
+TrazApp/dist/
+TrazApp/www/
+
+# Capacitor native
+TrazApp/android/
+TrazApp/ios/
+
+# Misc
+*.DS_Store

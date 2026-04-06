@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ finca ? 'Editar Finca' : 'Nueva Finca' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombre" placeholder="Nombre de la finca" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Cliente</ion-label>
+      <ion-select [(ngModel)]="idCliente" placeholder="Seleccionar cliente" interface="action-sheet" [compareWith]="compareById">
+        <ion-select-option *ngFor="let c of clientes" [value]="c.id">{{ c.nombre }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="guardar()">
+    <ion-icon name="save-outline" slot="start"></ion-icon>
+    Guardar
+  </ion-button>
+</ion-content>

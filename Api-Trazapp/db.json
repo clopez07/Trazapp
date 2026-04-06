@@ -1,0 +1,2424 @@
+{
+  "clientes": [
+    {
+      "id": "1",
+      "nombre": "Acuacultura del Sur",
+      "estado": "activo"
+    },
+    {
+      "id": "2",
+      "nombre": "Camarones del Pacífico",
+      "estado": "activo"
+    },
+    {
+      "id": "3",
+      "nombre": "Biocultivos Marinos",
+      "estado": "activo"
+    },
+    {
+      "id": "4",
+      "nombre": "Rivermar",
+      "estado": "activo"
+    }
+  ],
+  "fincas": [
+    {
+      "id": "1",
+      "nombre": "Finca La Esperanza",
+      "idCliente": 1,
+      "estado": "activo"
+    },
+    {
+      "id": "2",
+      "nombre": "Finca El Progreso",
+      "idCliente": 1,
+      "estado": "activo"
+    },
+    {
+      "id": "3",
+      "nombre": "Finca San José",
+      "idCliente": 2,
+      "estado": "activo"
+    },
+    {
+      "id": "4",
+      "nombre": "Michiguiste",
+      "idCliente": 3,
+      "estado": "activo"
+    },
+    {
+      "id": "5",
+      "nombre": "Rivermar",
+      "idCliente": 4,
+      "estado": "activo"
+    },
+    {
+      "id": "6",
+      "nombre": "Algodon",
+      "idCliente": 4,
+      "estado": "activo"
+    }
+  ],
+  "lagunas": [
+    {
+      "id": "1",
+      "nombre": "Laguna 1",
+      "idFinca": 1,
+      "estado": "activo"
+    },
+    {
+      "id": "2",
+      "nombre": "Laguna 2",
+      "idFinca": 1,
+      "estado": "activo"
+    },
+    {
+      "id": "3",
+      "nombre": "Laguna A",
+      "idFinca": 2,
+      "estado": "activo"
+    },
+    {
+      "id": "4",
+      "nombre": "Laguna Norte",
+      "idFinca": 3,
+      "estado": "activo"
+    },
+    {
+      "id": "5",
+      "nombre": "01",
+      "idFinca": 4,
+      "estado": "activo"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nombre": "Carlos López",
+      "rol": "admin",
+      "correo": "clopez@trazapp.com",
+      "telefono": "9999-0001",
+      "estado": "activo"
+    },
+    {
+      "id": "2",
+      "nombre": "Ana García",
+      "rol": "supervisor",
+      "correo": "agarcia@trazapp.com",
+      "telefono": "9999-0002",
+      "estado": "activo"
+    },
+    {
+      "id": "3",
+      "nombre": "Pedro Mora",
+      "rol": "operario",
+      "correo": "pmora@trazapp.com",
+      "telefono": "9999-0003",
+      "estado": "activo"
+    },
+    {
+      "id": "4",
+      "nombre": "María Soto",
+      "rol": "operario",
+      "correo": "msoto@trazapp.com",
+      "telefono": "9999-0004",
+      "estado": "activo"
+    },
+    {
+      "id": "5",
+      "nombre": "Luis Ramos",
+      "rol": "panelista",
+      "correo": "lramos@trazapp.com",
+      "telefono": "9999-0005",
+      "estado": "activo"
+    },
+    {
+      "id": "6",
+      "nombre": "Rosa Torres",
+      "rol": "panelista",
+      "correo": "rtorres@trazapp.com",
+      "telefono": "9999-0006",
+      "estado": "activo"
+    },
+    {
+      "id": "7",
+      "nombre": "Jorge Mendez",
+      "rol": "panelista",
+      "correo": "jmendez@trazapp.com",
+      "telefono": "9999-0007",
+      "estado": "activo"
+    },
+    {
+      "id": "8",
+      "nombre": "Sandra Reyes",
+      "rol": "panelista",
+      "correo": "sreyes@trazapp.com",
+      "telefono": "9999-0008",
+      "estado": "activo"
+    },
+    {
+      "id": "9",
+      "nombre": "Miguel Fuentes",
+      "rol": "panelista",
+      "correo": "mfuentes@trazapp.com",
+      "telefono": "9999-0009",
+      "estado": "activo"
+    }
+  ],
+  "tipos_defecto": [
+    {
+      "id": "1",
+      "nombre": "Mudado",
+      "descripcion": "Camarón en proceso de muda",
+      "estado": "activo"
+    },
+    {
+      "id": "2",
+      "nombre": "Concha Suave",
+      "descripcion": "Concha blanda al tacto",
+      "estado": "activo"
+    },
+    {
+      "id": "3",
+      "nombre": "Flácido",
+      "descripcion": "Cuerpo sin firmeza",
+      "estado": "activo"
+    },
+    {
+      "id": "4",
+      "nombre": "Melanosis",
+      "descripcion": "Manchas negras en el cuerpo",
+      "estado": "activo"
+    },
+    {
+      "id": "5",
+      "nombre": "Necrosis Leve",
+      "descripcion": "Tejido necrosado en grado leve",
+      "estado": "activo"
+    },
+    {
+      "id": "6",
+      "nombre": "Necrosis Moderada",
+      "descripcion": "Tejido necrosado en grado moderado",
+      "estado": "activo"
+    },
+    {
+      "id": "7",
+      "nombre": "Arena",
+      "descripcion": "Presencia de arena en el cuerpo",
+      "estado": "activo"
+    },
+    {
+      "id": "8",
+      "nombre": "Quebrado",
+      "descripcion": "Cuerpo partido o quebrado",
+      "estado": "activo"
+    },
+    {
+      "id": "9",
+      "nombre": "Pálido",
+      "descripcion": "Coloración pálida anormal",
+      "estado": "activo"
+    },
+    {
+      "id": "10",
+      "nombre": "Camarón Rojo",
+      "descripcion": "Coloración roja anormal",
+      "estado": "activo"
+    },
+    {
+      "id": "11",
+      "nombre": "Deshidratado",
+      "descripcion": "Pérdida excesiva de humedad",
+      "estado": "activo"
+    },
+    {
+      "id": "14",
+      "nombre": "Cabeza Roja",
+      "descripcion": "Cabeza con coloración roja",
+      "estado": "activo"
+    },
+    {
+      "id": "15",
+      "nombre": "Cabeza Naranja",
+      "descripcion": "Cabeza con coloración naranja",
+      "estado": "activo"
+    },
+    {
+      "id": "16",
+      "nombre": "Cabeza Caída",
+      "descripcion": "Cabeza desprendida o caída",
+      "estado": "activo"
+    },
+    {
+      "id": "17",
+      "nombre": "Cabeza Reventada",
+      "descripcion": "Cabeza con ruptura visible",
+      "estado": "activo"
+    },
+    {
+      "id": "18",
+      "nombre": "Branquias Oscuras",
+      "descripcion": "Branquias con coloración oscura",
+      "estado": "activo"
+    },
+    {
+      "id": "19",
+      "nombre": "Branquias Sucias",
+      "descripcion": "Branquias con suciedad visible",
+      "estado": "activo"
+    },
+    {
+      "id": "21",
+      "nombre": "Nitido",
+      "descripcion": "Camaron Nitido para proceso",
+      "estado": "activo"
+    }
+  ],
+  "trazabilidad_recepcion": [
+    {
+      "id": "1",
+      "loteInterno": "R-2026-03-30-0001",
+      "fecha": "2026-03-30",
+      "turno": "A",
+      "idCliente": 1,
+      "idFinca": 1,
+      "idLaguna": 2,
+      "fechaCosecha": "2026-03-30",
+      "horaCosecha": "02:30",
+      "horaRecibido": "12:10",
+      "idUsuarioRealiza": 6,
+      "idUsuarioVerifica": 1,
+      "observaciones": "",
+      "estado": "pendiente",
+      "latitud": 13.184721,
+      "longitud": -87.657234
+    },
+    {
+      "id": "2",
+      "loteInterno": "R-2026-03-30-0002",
+      "fecha": "2026-03-30",
+      "turno": "B",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "fechaCosecha": "2026-03-29",
+      "horaCosecha": "22:15",
+      "horaRecibido": "23:16",
+      "idUsuarioRealiza": 3,
+      "idUsuarioVerifica": 5,
+      "observaciones": "",
+      "estado": "verificado",
+      "latitud": 13.185043,
+      "longitud": -87.658012
+    },
+    {
+      "id": "3",
+      "loteInterno": "R-2026-03-31-0001",
+      "fecha": "2026-03-31",
+      "turno": "A",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "fechaCosecha": "2026-03-30",
+      "horaCosecha": "23:58",
+      "horaRecibido": "02:01",
+      "idUsuarioRealiza": 5,
+      "idUsuarioVerifica": 4,
+      "observaciones": "",
+      "estado": "declinado",
+      "latitud": 13.183956,
+      "longitud": -87.656789
+    },
+    {
+      "id": "4",
+      "loteInterno": "R-2026-03-30-0003",
+      "fecha": "2026-03-30",
+      "turno": "A",
+      "idCliente": "1",
+      "idFinca": "1",
+      "idLaguna": "2",
+      "fechaCosecha": "2026-03-31",
+      "horaCosecha": "14:33",
+      "horaRecibido": "17:32",
+      "idUsuarioRealiza": "4",
+      "idUsuarioVerifica": "3",
+      "observaciones": "",
+      "estado": "pendiente",
+      "latitud": 13.186234,
+      "longitud": -87.659456
+    },
+    {
+      "id": "5",
+      "loteInterno": "R-2026-04-06-0001",
+      "fecha": "2026-04-06",
+      "turno": "A",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "fechaCosecha": "2026-04-05",
+      "horaCosecha": "18:01",
+      "horaRecibido": "21:01",
+      "remisionSAG": "IBO-000001",
+      "numeroAutorizacion": "2503030-230-A",
+      "idUsuarioRealiza": "3",
+      "idUsuarioVerifica": "4",
+      "observaciones": "",
+      "correcciones": "",
+      "latitud": 13.319094183618198,
+      "longitud": -87.20973685627602
+    },
+    {
+      "id": "1775451313442",
+      "loteInterno": "R-2026-04-06-0002",
+      "fecha": "2026-04-06",
+      "turno": "A",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "fechaCosecha": "2026-04-05",
+      "horaCosecha": "19:54",
+      "horaRecibido": "22:54",
+      "remisionSAG": "IBO-00020202",
+      "numeroAutorizacion": "2993939-A-22020",
+      "idUsuarioRealiza": "5",
+      "idUsuarioVerifica": "4",
+      "observaciones": "",
+      "correcciones": "",
+      "latitud": 13.319172558481917,
+      "longitud": -87.20974459318639
+    }
+  ],
+  "detalle_bins": [
+    {
+      "id": "1",
+      "idRecepcion": 1,
+      "numeroBin": "01",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "2",
+      "idRecepcion": 1,
+      "numeroBin": "02",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "3",
+      "idRecepcion": 1,
+      "numeroBin": "03",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "4",
+      "idRecepcion": 1,
+      "numeroBin": "04",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "5",
+      "idRecepcion": 1,
+      "numeroBin": "05",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "6",
+      "idRecepcion": 1,
+      "numeroBin": "06",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "7",
+      "idRecepcion": 1,
+      "numeroBin": "07",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "8",
+      "idRecepcion": 1,
+      "numeroBin": "08",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "9",
+      "idRecepcion": 1,
+      "numeroBin": "09",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "10",
+      "idRecepcion": 1,
+      "numeroBin": "10",
+      "cantidadLibras": 910,
+      "horaInicioProceso": "21:04",
+      "estado": "procesado"
+    },
+    {
+      "id": "11",
+      "idRecepcion": 2,
+      "numeroBin": "01",
+      "cantidadLibras": 500,
+      "horaInicioProceso": "00:07",
+      "estado": "procesado"
+    },
+    {
+      "id": "12",
+      "idRecepcion": 2,
+      "numeroBin": "02",
+      "cantidadLibras": 500,
+      "horaInicioProceso": "00:07",
+      "estado": "procesado"
+    },
+    {
+      "id": "13",
+      "idRecepcion": 3,
+      "numeroBin": "01",
+      "cantidadLibras": 900,
+      "horaInicioProceso": "00:07",
+      "estado": "procesado"
+    },
+    {
+      "id": "14",
+      "idRecepcion": 3,
+      "numeroBin": "02",
+      "cantidadLibras": 900,
+      "horaInicioProceso": "00:07",
+      "estado": "procesado"
+    },
+    {
+      "id": "15",
+      "idRecepcion": 4,
+      "numeroBin": "1",
+      "cantidadLibras": 900,
+      "horaInicioProceso": "22:19",
+      "estado": "procesado"
+    },
+    {
+      "id": "16",
+      "idRecepcion": 4,
+      "numeroBin": "2",
+      "cantidadLibras": 900,
+      "horaInicioProceso": "22:20",
+      "estado": "procesado"
+    },
+    {
+      "id": "17",
+      "idRecepcion": 5,
+      "numeroBin": "01",
+      "cantidadLibras": 100,
+      "horaInicioProceso": "22:53",
+      "estado": "procesado"
+    },
+    {
+      "id": "18",
+      "idRecepcion": 5,
+      "numeroBin": "02",
+      "cantidadLibras": 100,
+      "horaInicioProceso": "22:53",
+      "estado": "procesado"
+    },
+    {
+      "id": "1775451313463",
+      "idRecepcion": 1775451313442,
+      "numeroBin": "01",
+      "cantidadLibras": 200,
+      "horaInicioProceso": "22:55",
+      "estado": "procesado"
+    },
+    {
+      "id": "1775451313470",
+      "idRecepcion": 1775451313442,
+      "numeroBin": "02",
+      "cantidadLibras": 200,
+      "horaInicioProceso": "22:55",
+      "estado": "procesado"
+    },
+    {
+      "id": "1775451313484",
+      "idRecepcion": 1775451313442,
+      "numeroBin": "03",
+      "cantidadLibras": 300,
+      "horaInicioProceso": "22:55",
+      "estado": "procesado"
+    }
+  ],
+  "calidad_entero": [
+    {
+      "id": "1",
+      "fecha": "2026-04-03",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": 1,
+      "loteInterno": "R-2026-03-30-0001",
+      "idCliente": 1,
+      "idFinca": 1,
+      "idLaguna": 2,
+      "gramos": 21.3,
+      "observacion": "",
+      "correccion": "",
+      "supervisor": "Carlos",
+      "idUsuarioRealiza": "4",
+      "estado": "verificado",
+      "idUsuarioVerifica": "1",
+      "latitud": 13.184512,
+      "longitud": -87.657891
+    },
+    {
+      "id": "2",
+      "fecha": "2026-04-04",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": 3,
+      "loteInterno": "R-2026-03-31-0001",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "gramos": 25.3,
+      "observacion": "",
+      "correccion": "",
+      "supervisor": "",
+      "idUsuarioRealiza": "3",
+      "estado": "declinado",
+      "idUsuarioVerifica": "1",
+      "latitud": 13.185678,
+      "longitud": -87.658234
+    },
+    {
+      "id": "3",
+      "fecha": "2026-04-06",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": 2,
+      "loteInterno": "R-2026-03-30-0002",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "gramos": 23,
+      "observacion": "",
+      "correccion": "",
+      "supervisor": "",
+      "idUsuarioRealiza": "2",
+      "estado": "verificado",
+      "latitud": 13.31909923560049,
+      "longitud": -87.20984626937496,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "4",
+      "fecha": "2026-04-06",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": 2,
+      "loteInterno": "R-2026-03-30-0002",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "gramos": 25.3,
+      "observacion": "",
+      "correccion": "",
+      "supervisor": "",
+      "idUsuarioRealiza": "2",
+      "estado": "verificado",
+      "latitud": 13.319175748807991,
+      "longitud": -87.209647145533,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "1775451013044",
+      "fecha": "2026-04-06",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": "2",
+      "loteInterno": "R-2026-03-30-0002",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "gramos": 23,
+      "observacion": "",
+      "correccion": "",
+      "supervisor": "",
+      "idUsuarioRealiza": "2",
+      "estado": "verificado",
+      "latitud": 13.319242322212203,
+      "longitud": -87.2097034983303,
+      "idUsuarioVerifica": "1"
+    }
+  ],
+  "detalle_calidad": [
+    {
+      "id": "1",
+      "idCalidad": 1,
+      "idTipoDefecto": "1",
+      "cantidad": 11,
+      "esNitido": false
+    },
+    {
+      "id": "2",
+      "idCalidad": 1,
+      "idTipoDefecto": "2",
+      "cantidad": 9,
+      "esNitido": false
+    },
+    {
+      "id": "3",
+      "idCalidad": 1,
+      "idTipoDefecto": "3",
+      "cantidad": 10,
+      "esNitido": false
+    },
+    {
+      "id": "4",
+      "idCalidad": 1,
+      "idTipoDefecto": "4",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "5",
+      "idCalidad": 1,
+      "idTipoDefecto": "5",
+      "cantidad": 4,
+      "esNitido": false
+    },
+    {
+      "id": "6",
+      "idCalidad": 1,
+      "idTipoDefecto": "6",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "7",
+      "idCalidad": 1,
+      "idTipoDefecto": "7",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "8",
+      "idCalidad": 1,
+      "idTipoDefecto": "8",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "9",
+      "idCalidad": 1,
+      "idTipoDefecto": "9",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "10",
+      "idCalidad": 1,
+      "idTipoDefecto": "10",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "11",
+      "idCalidad": 1,
+      "idTipoDefecto": "11",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "12",
+      "idCalidad": 1,
+      "idTipoDefecto": "14",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "13",
+      "idCalidad": 1,
+      "idTipoDefecto": "15",
+      "cantidad": 3,
+      "esNitido": false
+    },
+    {
+      "id": "14",
+      "idCalidad": 1,
+      "idTipoDefecto": "16",
+      "cantidad": 4,
+      "esNitido": false
+    },
+    {
+      "id": "15",
+      "idCalidad": 1,
+      "idTipoDefecto": "17",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "16",
+      "idCalidad": 1,
+      "idTipoDefecto": "18",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "17",
+      "idCalidad": 1,
+      "idTipoDefecto": "19",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "18",
+      "idCalidad": 1,
+      "idTipoDefecto": "20",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "19",
+      "idCalidad": 1,
+      "idTipoDefecto": 21,
+      "cantidad": 59,
+      "esNitido": true
+    },
+    {
+      "id": "20",
+      "idCalidad": 2,
+      "idTipoDefecto": "1",
+      "cantidad": 14,
+      "esNitido": false
+    },
+    {
+      "id": "21",
+      "idCalidad": 2,
+      "idTipoDefecto": "2",
+      "cantidad": 5,
+      "esNitido": false
+    },
+    {
+      "id": "22",
+      "idCalidad": 2,
+      "idTipoDefecto": "3",
+      "cantidad": 5,
+      "esNitido": false
+    },
+    {
+      "id": "23",
+      "idCalidad": 2,
+      "idTipoDefecto": "4",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "24",
+      "idCalidad": 2,
+      "idTipoDefecto": "5",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "25",
+      "idCalidad": 2,
+      "idTipoDefecto": "6",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "26",
+      "idCalidad": 2,
+      "idTipoDefecto": "7",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "27",
+      "idCalidad": 2,
+      "idTipoDefecto": "8",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "28",
+      "idCalidad": 2,
+      "idTipoDefecto": "9",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "29",
+      "idCalidad": 2,
+      "idTipoDefecto": "10",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "30",
+      "idCalidad": 2,
+      "idTipoDefecto": "11",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "31",
+      "idCalidad": 2,
+      "idTipoDefecto": "14",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "32",
+      "idCalidad": 2,
+      "idTipoDefecto": "15",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "33",
+      "idCalidad": 2,
+      "idTipoDefecto": "16",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "34",
+      "idCalidad": 2,
+      "idTipoDefecto": "17",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "35",
+      "idCalidad": 2,
+      "idTipoDefecto": "18",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "36",
+      "idCalidad": 2,
+      "idTipoDefecto": "19",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "37",
+      "idCalidad": 2,
+      "idTipoDefecto": "20",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "38",
+      "idCalidad": 2,
+      "idTipoDefecto": "21",
+      "cantidad": 50,
+      "esNitido": true
+    },
+    {
+      "id": "39",
+      "idCalidad": 3,
+      "idTipoDefecto": "1",
+      "cantidad": 5,
+      "esNitido": false
+    },
+    {
+      "id": "40",
+      "idCalidad": 3,
+      "idTipoDefecto": "2",
+      "cantidad": 4,
+      "esNitido": false
+    },
+    {
+      "id": "41",
+      "idCalidad": 3,
+      "idTipoDefecto": "3",
+      "cantidad": 3,
+      "esNitido": false
+    },
+    {
+      "id": "42",
+      "idCalidad": 3,
+      "idTipoDefecto": "4",
+      "cantidad": 2,
+      "esNitido": false
+    },
+    {
+      "id": "43",
+      "idCalidad": 3,
+      "idTipoDefecto": "5",
+      "cantidad": 1,
+      "esNitido": false
+    },
+    {
+      "id": "44",
+      "idCalidad": 3,
+      "idTipoDefecto": "6",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "45",
+      "idCalidad": 3,
+      "idTipoDefecto": "7",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "46",
+      "idCalidad": 3,
+      "idTipoDefecto": "8",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "47",
+      "idCalidad": 3,
+      "idTipoDefecto": "9",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "48",
+      "idCalidad": 3,
+      "idTipoDefecto": "10",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "49",
+      "idCalidad": 3,
+      "idTipoDefecto": "11",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "50",
+      "idCalidad": 3,
+      "idTipoDefecto": "14",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "51",
+      "idCalidad": 3,
+      "idTipoDefecto": "15",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "52",
+      "idCalidad": 3,
+      "idTipoDefecto": "16",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "53",
+      "idCalidad": 3,
+      "idTipoDefecto": "17",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "54",
+      "idCalidad": 3,
+      "idTipoDefecto": "18",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "55",
+      "idCalidad": 3,
+      "idTipoDefecto": "19",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "56",
+      "idCalidad": 3,
+      "idTipoDefecto": "21",
+      "cantidad": 45,
+      "esNitido": true
+    },
+    {
+      "id": "57",
+      "idCalidad": 4,
+      "idTipoDefecto": "1",
+      "cantidad": 5,
+      "esNitido": false
+    },
+    {
+      "id": "58",
+      "idCalidad": 4,
+      "idTipoDefecto": "2",
+      "cantidad": 4,
+      "esNitido": false
+    },
+    {
+      "id": "59",
+      "idCalidad": 4,
+      "idTipoDefecto": "3",
+      "cantidad": 3,
+      "esNitido": false
+    },
+    {
+      "id": "60",
+      "idCalidad": 4,
+      "idTipoDefecto": "4",
+      "cantidad": 2,
+      "esNitido": false
+    },
+    {
+      "id": "61",
+      "idCalidad": 4,
+      "idTipoDefecto": "5",
+      "cantidad": 1,
+      "esNitido": false
+    },
+    {
+      "id": "62",
+      "idCalidad": 4,
+      "idTipoDefecto": "6",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "63",
+      "idCalidad": 4,
+      "idTipoDefecto": "7",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "64",
+      "idCalidad": 4,
+      "idTipoDefecto": "8",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "65",
+      "idCalidad": 4,
+      "idTipoDefecto": "9",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "66",
+      "idCalidad": 4,
+      "idTipoDefecto": "10",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "67",
+      "idCalidad": 4,
+      "idTipoDefecto": "11",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "68",
+      "idCalidad": 4,
+      "idTipoDefecto": "14",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "69",
+      "idCalidad": 4,
+      "idTipoDefecto": "15",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "70",
+      "idCalidad": 4,
+      "idTipoDefecto": "16",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "71",
+      "idCalidad": 4,
+      "idTipoDefecto": "17",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "72",
+      "idCalidad": 4,
+      "idTipoDefecto": "18",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "73",
+      "idCalidad": 4,
+      "idTipoDefecto": "19",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "74",
+      "idCalidad": 4,
+      "idTipoDefecto": "21",
+      "cantidad": 50,
+      "esNitido": true
+    },
+    {
+      "id": "1775451013067",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "1",
+      "cantidad": 10,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013075",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "2",
+      "cantidad": 5,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013080",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "3",
+      "cantidad": 4,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013086",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "4",
+      "cantidad": 4,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013090",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "5",
+      "cantidad": 5,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013096",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "6",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013107",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "7",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013114",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "8",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013123",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "9",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013129",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "10",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013135",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "11",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013140",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "14",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013145",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "15",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013150",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "16",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013156",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "17",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013160",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "18",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013164",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "19",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775451013169",
+      "idCalidad": 1775451013044,
+      "idTipoDefecto": "21",
+      "cantidad": 51,
+      "esNitido": true
+    }
+  ],
+  "clasificacion_tallas": [
+    {
+      "id": "1",
+      "fecha": "2026-04-03",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": 2,
+      "loteInterno": "R-2026-03-30-0002",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "pesoMuestra": 21,
+      "tallaDominante": "50-60",
+      "idUsuarioRealiza": "2",
+      "estado": "verificado",
+      "idUsuarioVerifica": "1",
+      "latitud": 13.183789,
+      "longitud": -87.656123
+    },
+    {
+      "id": "2",
+      "fecha": "2026-04-06",
+      "turno": "A",
+      "tipo": "proceso",
+      "idRecepcion": "2",
+      "loteInterno": "R-2026-03-30-0002",
+      "idCliente": 1,
+      "idFinca": 2,
+      "idLaguna": 3,
+      "pesoMuestra": 25.4,
+      "tallaDominante": "30-40",
+      "idUsuarioRealiza": "2",
+      "estado": "verificado",
+      "latitud": 13.318994455373089,
+      "longitud": -87.20964848977877,
+      "idUsuarioVerifica": "1"
+    }
+  ],
+  "detalle_tallas": [
+    {
+      "id": "1",
+      "idClasif": 1,
+      "rangoTalla": "10-20",
+      "pesoGramos": 104,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "2",
+      "idClasif": 1,
+      "rangoTalla": "10-20",
+      "pesoGramos": 90,
+      "cantidad": 2,
+      "porcentaje": 9.5
+    },
+    {
+      "id": "3",
+      "idClasif": 1,
+      "rangoTalla": "10-20",
+      "pesoGramos": 76,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "4",
+      "idClasif": 1,
+      "rangoTalla": "10-20",
+      "pesoGramos": 64,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "5",
+      "idClasif": 1,
+      "rangoTalla": "10-20",
+      "pesoGramos": 51,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "6",
+      "idClasif": 1,
+      "rangoTalla": "20-30",
+      "pesoGramos": 50,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "7",
+      "idClasif": 1,
+      "rangoTalla": "20-30",
+      "pesoGramos": 44,
+      "cantidad": 3,
+      "porcentaje": 14.3
+    },
+    {
+      "id": "8",
+      "idClasif": 1,
+      "rangoTalla": "20-30",
+      "pesoGramos": 38,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "9",
+      "idClasif": 1,
+      "rangoTalla": "20-30",
+      "pesoGramos": 34,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "10",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 33,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "11",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 32,
+      "cantidad": 4,
+      "porcentaje": 19
+    },
+    {
+      "id": "12",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 31,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "13",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 30,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "14",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 29,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "15",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 28,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "16",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 27,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "17",
+      "idClasif": 1,
+      "rangoTalla": "30-40",
+      "pesoGramos": 26,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "18",
+      "idClasif": 1,
+      "rangoTalla": "40-50",
+      "pesoGramos": 25,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "19",
+      "idClasif": 1,
+      "rangoTalla": "40-50",
+      "pesoGramos": 24,
+      "cantidad": 5,
+      "porcentaje": 23.8
+    },
+    {
+      "id": "20",
+      "idClasif": 1,
+      "rangoTalla": "40-50",
+      "pesoGramos": 23,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "21",
+      "idClasif": 1,
+      "rangoTalla": "40-50",
+      "pesoGramos": 22,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "22",
+      "idClasif": 1,
+      "rangoTalla": "40-50",
+      "pesoGramos": 21,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "23",
+      "idClasif": 1,
+      "rangoTalla": "40-50",
+      "pesoGramos": 20,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "24",
+      "idClasif": 1,
+      "rangoTalla": "50-60",
+      "pesoGramos": 20,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "25",
+      "idClasif": 1,
+      "rangoTalla": "50-60",
+      "pesoGramos": 19,
+      "cantidad": 6,
+      "porcentaje": 28.6
+    },
+    {
+      "id": "26",
+      "idClasif": 1,
+      "rangoTalla": "50-60",
+      "pesoGramos": 18,
+      "cantidad": 1,
+      "porcentaje": 4.8
+    },
+    {
+      "id": "27",
+      "idClasif": 1,
+      "rangoTalla": "50-60",
+      "pesoGramos": 17,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "28",
+      "idClasif": 1,
+      "rangoTalla": "60-70",
+      "pesoGramos": 16,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "29",
+      "idClasif": 1,
+      "rangoTalla": "60-70",
+      "pesoGramos": 15,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "30",
+      "idClasif": 1,
+      "rangoTalla": "60-70",
+      "pesoGramos": 14,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "31",
+      "idClasif": 1,
+      "rangoTalla": "70-80",
+      "pesoGramos": 13,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "32",
+      "idClasif": 1,
+      "rangoTalla": "70-80",
+      "pesoGramos": 12,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "33",
+      "idClasif": 1,
+      "rangoTalla": "70-80",
+      "pesoGramos": 11,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "34",
+      "idClasif": 1,
+      "rangoTalla": "80-100",
+      "pesoGramos": 10,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "35",
+      "idClasif": 1,
+      "rangoTalla": "80-100",
+      "pesoGramos": 9,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "36",
+      "idClasif": 1,
+      "rangoTalla": "80-100",
+      "pesoGramos": 8,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "37",
+      "idClasif": 2,
+      "rangoTalla": "10-20",
+      "pesoGramos": 104,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "38",
+      "idClasif": 2,
+      "rangoTalla": "10-20",
+      "pesoGramos": 90,
+      "cantidad": 3,
+      "porcentaje": 11.8
+    },
+    {
+      "id": "39",
+      "idClasif": 2,
+      "rangoTalla": "10-20",
+      "pesoGramos": 76,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "40",
+      "idClasif": 2,
+      "rangoTalla": "10-20",
+      "pesoGramos": 64,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "41",
+      "idClasif": 2,
+      "rangoTalla": "10-20",
+      "pesoGramos": 51,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "42",
+      "idClasif": 2,
+      "rangoTalla": "20-30",
+      "pesoGramos": 50,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "43",
+      "idClasif": 2,
+      "rangoTalla": "20-30",
+      "pesoGramos": 44,
+      "cantidad": 5,
+      "porcentaje": 19.7
+    },
+    {
+      "id": "44",
+      "idClasif": 2,
+      "rangoTalla": "20-30",
+      "pesoGramos": 38,
+      "cantidad": 3,
+      "porcentaje": 11.8
+    },
+    {
+      "id": "45",
+      "idClasif": 2,
+      "rangoTalla": "20-30",
+      "pesoGramos": 34,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "46",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 33,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "47",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 32,
+      "cantidad": 7,
+      "porcentaje": 27.6
+    },
+    {
+      "id": "48",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 31,
+      "cantidad": 5,
+      "porcentaje": 19.7
+    },
+    {
+      "id": "49",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 30,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "50",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 29,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "51",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 28,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "52",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 27,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "53",
+      "idClasif": 2,
+      "rangoTalla": "30-40",
+      "pesoGramos": 26,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "54",
+      "idClasif": 2,
+      "rangoTalla": "40-50",
+      "pesoGramos": 25,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "55",
+      "idClasif": 2,
+      "rangoTalla": "40-50",
+      "pesoGramos": 24,
+      "cantidad": 2,
+      "porcentaje": 7.9
+    },
+    {
+      "id": "56",
+      "idClasif": 2,
+      "rangoTalla": "40-50",
+      "pesoGramos": 23,
+      "cantidad": 0.4,
+      "porcentaje": 1.6
+    },
+    {
+      "id": "57",
+      "idClasif": 2,
+      "rangoTalla": "40-50",
+      "pesoGramos": 22,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "58",
+      "idClasif": 2,
+      "rangoTalla": "40-50",
+      "pesoGramos": 21,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "59",
+      "idClasif": 2,
+      "rangoTalla": "40-50",
+      "pesoGramos": 20,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "60",
+      "idClasif": 2,
+      "rangoTalla": "50-60",
+      "pesoGramos": 20,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "61",
+      "idClasif": 2,
+      "rangoTalla": "50-60",
+      "pesoGramos": 19,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "62",
+      "idClasif": 2,
+      "rangoTalla": "50-60",
+      "pesoGramos": 18,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "63",
+      "idClasif": 2,
+      "rangoTalla": "50-60",
+      "pesoGramos": 17,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "64",
+      "idClasif": 2,
+      "rangoTalla": "60-70",
+      "pesoGramos": 16,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "65",
+      "idClasif": 2,
+      "rangoTalla": "60-70",
+      "pesoGramos": 15,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "66",
+      "idClasif": 2,
+      "rangoTalla": "60-70",
+      "pesoGramos": 14,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "67",
+      "idClasif": 2,
+      "rangoTalla": "70-80",
+      "pesoGramos": 13,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "68",
+      "idClasif": 2,
+      "rangoTalla": "70-80",
+      "pesoGramos": 12,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "69",
+      "idClasif": 2,
+      "rangoTalla": "70-80",
+      "pesoGramos": 11,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "70",
+      "idClasif": 2,
+      "rangoTalla": "80-100",
+      "pesoGramos": 10,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "71",
+      "idClasif": 2,
+      "rangoTalla": "80-100",
+      "pesoGramos": 9,
+      "cantidad": 0,
+      "porcentaje": 0
+    },
+    {
+      "id": "72",
+      "idClasif": 2,
+      "rangoTalla": "80-100",
+      "pesoGramos": 8,
+      "cantidad": 0,
+      "porcentaje": 0
+    }
+  ],
+  "muestras_sabor": [
+    {
+      "id": "1",
+      "fecha": "2026-04-03",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": 0,
+      "observaciones": "",
+      "estado": "verificado",
+      "idUsuarioVerifica": "1",
+      "latitud": 13.184956,
+      "longitud": -87.657678
+    },
+    {
+      "id": "2",
+      "fecha": "2026-04-05",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": "4",
+      "observaciones": "",
+      "estado": "declinado",
+      "latitud": 13.319084882905706,
+      "longitud": -87.20976540438403,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "3",
+      "fecha": "2026-04-06",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": "2",
+      "observaciones": "",
+      "estado": "verificado",
+      "latitud": 13.319204233112671,
+      "longitud": -87.20976936432979,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "4",
+      "fecha": "2026-04-06",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": "4",
+      "observaciones": "",
+      "estado": "verificado",
+      "latitud": 13.319215924797435,
+      "longitud": -87.20968771360793,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "5",
+      "fecha": "2026-04-06",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": "2",
+      "observaciones": "",
+      "estado": "verificado",
+      "latitud": 13.319215939052848,
+      "longitud": -87.20968746696568,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "1775450954827",
+      "fecha": "2026-04-06",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": "5",
+      "observaciones": "",
+      "estado": "verificado",
+      "latitud": 13.319274234845135,
+      "longitud": -87.20978124170698,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "1775451178773",
+      "fecha": "2026-04-07",
+      "tipo": "proceso",
+      "turno": "A",
+      "idUsuarioRealiza": "5",
+      "observaciones": "",
+      "estado": "verificado",
+      "latitud": 13.31908524366714,
+      "longitud": -87.20970554467097,
+      "idUsuarioVerifica": "2"
+    }
+  ],
+  "detalle_sabor": [
+    {
+      "id": "1",
+      "idMuestra": 1,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "5",
+      "calificacion": 8,
+      "totalRespuestas": 2
+    },
+    {
+      "id": "2",
+      "idMuestra": 1,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "6",
+      "calificacion": 10,
+      "totalRespuestas": 2
+    },
+    {
+      "id": "3",
+      "idMuestra": 2,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "2",
+      "idLaguna": "3",
+      "idPanelista": "5",
+      "calificacion": 7,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "4",
+      "idMuestra": 2,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "2",
+      "idLaguna": "3",
+      "idPanelista": "6",
+      "calificacion": 8,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "5",
+      "idMuestra": 2,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "2",
+      "idLaguna": "3",
+      "idPanelista": "7",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "6",
+      "idMuestra": 2,
+      "codigo": "L-002",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "5",
+      "calificacion": 10,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "7",
+      "idMuestra": 2,
+      "codigo": "L-002",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "6",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "8",
+      "idMuestra": 2,
+      "codigo": "L-002",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "7",
+      "calificacion": 10,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "9",
+      "idMuestra": 3,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "1",
+      "idLaguna": "1",
+      "idPanelista": "4",
+      "calificacion": 8,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "10",
+      "idMuestra": 3,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "1",
+      "idLaguna": "1",
+      "idPanelista": "3",
+      "calificacion": 9,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "11",
+      "idMuestra": 3,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "1",
+      "idLaguna": "1",
+      "idPanelista": "5",
+      "calificacion": 9,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "12",
+      "idMuestra": 3,
+      "codigo": "L-001",
+      "idCliente": "1",
+      "idFinca": "1",
+      "idLaguna": "1",
+      "idPanelista": "6",
+      "calificacion": 10,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "13",
+      "idMuestra": 3,
+      "codigo": "L-002",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "4",
+      "calificacion": 9,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "14",
+      "idMuestra": 3,
+      "codigo": "L-002",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "3",
+      "calificacion": 9,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "15",
+      "idMuestra": 3,
+      "codigo": "L-002",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "5",
+      "calificacion": 9,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "16",
+      "idMuestra": 3,
+      "codigo": "L-002",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "6",
+      "calificacion": 9,
+      "totalRespuestas": 4
+    },
+    {
+      "id": "17",
+      "idMuestra": 4,
+      "codigo": "L-001",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "3",
+      "calificacion": 10,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "18",
+      "idMuestra": 4,
+      "codigo": "L-001",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "2",
+      "calificacion": 10,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "19",
+      "idMuestra": 4,
+      "codigo": "L-001",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "4",
+      "calificacion": 10,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "20",
+      "idMuestra": 5,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "2",
+      "calificacion": 10,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "21",
+      "idMuestra": 5,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "3",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "22",
+      "idMuestra": 5,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "4",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "1775450954850",
+      "idMuestra": 1775450954827,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "2",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "1775450954857",
+      "idMuestra": 1775450954827,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "3",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "1775450954862",
+      "idMuestra": 1775450954827,
+      "codigo": "L-001",
+      "idCliente": "2",
+      "idFinca": "3",
+      "idLaguna": "4",
+      "idPanelista": "4",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "1775451178789",
+      "idMuestra": 1775451178773,
+      "codigo": "L-023",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "6",
+      "calificacion": 9.5,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "1775451178796",
+      "idMuestra": 1775451178773,
+      "codigo": "L-023",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "7",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    },
+    {
+      "id": "1775451178802",
+      "idMuestra": 1775451178773,
+      "codigo": "L-023",
+      "idCliente": "3",
+      "idFinca": "4",
+      "idLaguna": "5",
+      "idPanelista": "8",
+      "calificacion": 9,
+      "totalRespuestas": 3
+    }
+  ],
+  "fotos": [
+    {
+      "id": "1",
+      "idRegistro": 4,
+      "tipoRegistro": "calidad",
+      "pathLocal": "IMG_1775443109638.jpeg",
+      "nombreArchivo": "IMG_1775443109638.jpeg",
+      "latitud": 13.319175748807991,
+      "longitud": -87.209647145533,
+      "fechaFoto": "2026-04-06T02:38:32.536Z"
+    },
+    {
+      "id": "2",
+      "idRegistro": 5,
+      "tipoRegistro": "recepcion",
+      "pathLocal": "IMG_1775444583390.jpeg",
+      "nombreArchivo": "IMG_1775444583390.jpeg",
+      "latitud": 13.319094183618198,
+      "longitud": -87.20973685627602,
+      "fechaFoto": "2026-04-06T03:03:06.834Z"
+    },
+    {
+      "id": "3",
+      "idRegistro": 2,
+      "tipoRegistro": "tallas",
+      "pathLocal": "IMG_1775449743792.jpeg",
+      "nombreArchivo": "IMG_1775449743792.jpeg",
+      "latitud": 13.318994455373089,
+      "longitud": -87.20964848977877,
+      "fechaFoto": "2026-04-06T04:29:14.130Z"
+    },
+    {
+      "id": "4",
+      "idRegistro": 3,
+      "tipoRegistro": "sabor",
+      "pathLocal": "IMG_1775449864227.jpeg",
+      "nombreArchivo": "IMG_1775449864227.jpeg",
+      "latitud": 13.319204233112671,
+      "longitud": -87.20976936432979,
+      "fechaFoto": "2026-04-06T04:31:07.080Z"
+    },
+    {
+      "id": "5",
+      "idRegistro": 4,
+      "tipoRegistro": "sabor",
+      "pathLocal": "IMG_1775449945152.jpeg",
+      "nombreArchivo": "IMG_1775449945152.jpeg",
+      "latitud": 13.319215924797435,
+      "longitud": -87.20968771360793,
+      "fechaFoto": "2026-04-06T04:32:28.020Z"
+    },
+    {
+      "id": "6",
+      "idRegistro": 5,
+      "tipoRegistro": "sabor",
+      "pathLocal": "IMG_1775450464423.jpeg",
+      "nombreArchivo": "IMG_1775450464423.jpeg",
+      "latitud": 13.319215939052848,
+      "longitud": -87.20968746696568,
+      "fechaFoto": "2026-04-06T04:41:07.370Z"
+    },
+    {
+      "id": "1775450954867",
+      "idRegistro": 1775450954827,
+      "tipoRegistro": "sabor",
+      "pathLocal": "IMG_1775450951889.jpeg",
+      "nombreArchivo": "IMG_1775450951889.jpeg",
+      "latitud": 13.319274234845135,
+      "longitud": -87.20978124170698,
+      "fechaFoto": "2026-04-06T04:49:14.867Z"
+    },
+    {
+      "id": "1775451013174",
+      "idRegistro": 1775451013044,
+      "tipoRegistro": "calidad",
+      "pathLocal": "IMG_1775451010137.jpeg",
+      "nombreArchivo": "IMG_1775451010137.jpeg",
+      "latitud": 13.319242322212203,
+      "longitud": -87.2097034983303,
+      "fechaFoto": "2026-04-06T04:50:13.174Z"
+    },
+    {
+      "id": "1775451178808",
+      "idRegistro": 1775451178773,
+      "tipoRegistro": "sabor",
+      "pathLocal": "IMG_1775451176400.jpeg",
+      "nombreArchivo": "IMG_1775451176400.jpeg",
+      "latitud": 13.31908524366714,
+      "longitud": -87.20970554467097,
+      "fechaFoto": "2026-04-06T04:52:58.808Z"
+    },
+    {
+      "id": "1775451313490",
+      "idRegistro": 1775451313442,
+      "tipoRegistro": "recepcion",
+      "pathLocal": "IMG_1775451310261.jpeg",
+      "nombreArchivo": "IMG_1775451310261.jpeg",
+      "latitud": 13.319172558481917,
+      "longitud": -87.20974459318639,
+      "fechaFoto": "2026-04-06T04:55:13.490Z"
+    }
+  ]
+}

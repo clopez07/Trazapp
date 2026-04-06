@@ -1,0 +1,208 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="!tipoActivo"></ion-menu-button>
+      <ion-button *ngIf="tipoActivo" (click)="volverMenu()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="!tipoActivo">Calidades</span>
+      <span *ngIf="tipoActivo === 'entero'">Calidad Camarón Entero</span>
+      <span *ngIf="tipoActivo === 'tallas'">Clasificación de Tallas</span>
+      <span *ngIf="tipoActivo === 'sabor'">Muestras de Sabor</span>
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="tipoActivo">
+      <ion-button (click)="nuevo()">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="!tipoActivo">
+    <ion-searchbar [(ngModel)]="busquedaMenu" placeholder="Buscar formulario..." debounce="200"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="tipoActivo">
+    <ion-searchbar [(ngModel)]="busqueda" placeholder="Buscar por lote, fecha, tipo..." debounce="300"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="tipoActivo">
+    <ion-segment [(ngModel)]="filtroTurno">
+      <ion-segment-button value="">Todos</ion-segment-button>
+      <ion-segment-button value="A">Turno A</ion-segment-button>
+      <ion-segment-button value="B">Turno B</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="tipoActivo">
+    <ion-segment [(ngModel)]="filtroEstado">
+      <ion-segment-button value="">Todos</ion-segment-button>
+      <ion-segment-button value="pendiente">Pendiente</ion-segment-button>
+      <ion-segment-button value="verificado">Verificado</ion-segment-button>
+      <ion-segment-button value="declinado">Declinado</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="cargar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- ── Menú principal ─────────────────────────────────── -->
+  <ng-container *ngIf="!tipoActivo">
+    <ion-list class="ion-margin-top">
+      <ion-item *ngIf="mostrarOpcionMenu('Calidad Camarón Entero')" button detail (click)="abrirTipo('entero')">
+        <ion-icon name="flask-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h2>Calidad Camarón Entero</h2>
+          <p>Evaluación de defectos y nítidos</p>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="mostrarOpcionMenu('Clasificación de Tallas')" button detail (click)="abrirTipo('tallas')">
+        <ion-icon name="stats-chart-outline" slot="start" color="tertiary"></ion-icon>
+        <ion-label>
+          <h2>Clasificación de Tallas</h2>
+          <p>Conteo por gramaje y rango</p>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="mostrarOpcionMenu('Muestras de Sabor')" button detail (click)="abrirTipo('sabor')">
+        <ion-icon name="water-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>
+          <h2>Muestras de Sabor</h2>
+          <p>Evaluación organoléptica</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <!-- ── Lista: Calidad Entero ──────────────────────────── -->
+  <ng-container *ngIf="tipoActivo === 'entero'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let c of calidadesFiltradas">
+        <!-- Swipe derecha → Declinar -->
+        <ion-item-options side="start">
+          <ion-item-option *ngIf="c.estado === 'pendiente'" color="danger" (click)="declinar(c)">
+            <ion-icon name="close-circle-outline" slot="above"></ion-icon>
+            Declinar
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item (click)="previsualizar(c.id!)">
+          <ion-icon name="flask-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2><strong>{{ c.loteInterno || c.fecha }}</strong></h2>
+            <p>{{ c.fecha }} · Turno {{ c.turno }} · {{ c.tipo }}</p>
+            <p *ngIf="c.idUsuarioRealiza">Realizado por: {{ nombreUsuario(c.idUsuarioRealiza) }}</p>
+          </ion-label>
+          <!-- Botón Verificar (solo pendiente) -->
+          <ion-button *ngIf="c.estado === 'pendiente'" fill="solid" color="success" size="small" slot="end"
+            (click)="$event.stopPropagation(); validar(c)">
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            Verificar
+          </ion-button>
+          <ion-badge *ngIf="c.estado !== 'pendiente'" slot="end" [color]="badgeEstado(c.estado)">{{ c.estado }}</ion-badge>
+        </ion-item>
+
+        <!-- Swipe izquierda → Editar / Eliminar -->
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="nav.navigateForward('/calidad-entero-form/' + c.id)">
+            <ion-icon name="create-outline" slot="above"></ion-icon>
+            Editar
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="eliminar(c)">
+            <ion-icon name="trash-outline" slot="above"></ion-icon>
+            Eliminar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-item *ngIf="calidadesFiltradas.length === 0" lines="none">
+      <ion-label class="ion-text-center" color="medium">Sin registros</ion-label>
+    </ion-item>
+  </ng-container>
+
+  <!-- ── Lista: Clasificación Tallas ───────────────────── -->
+  <ng-container *ngIf="tipoActivo === 'tallas'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let c of clasificacionesFiltradas">
+        <ion-item-options side="start">
+          <ion-item-option *ngIf="c.estado === 'pendiente'" color="danger" (click)="declinarTallas(c)">
+            <ion-icon name="close-circle-outline" slot="above"></ion-icon>
+            Declinar
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item (click)="nav.navigateForward('/clasificacion-tallas-form/' + c.id, { queryParams: { modo: 'ver' } })">
+          <ion-icon name="stats-chart-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>
+            <h2><strong>{{ c.loteInterno || c.fecha }}</strong></h2>
+            <p>{{ c.fecha }} · Turno {{ c.turno }} · {{ c.tipo }}</p>
+            <p *ngIf="c.tallaDominante">Talla dominante: {{ c.tallaDominante }}</p>
+          </ion-label>
+          <ion-button *ngIf="c.estado === 'pendiente'" fill="solid" color="success" size="small" slot="end"
+            (click)="$event.stopPropagation(); validarTallas(c)">
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            Verificar
+          </ion-button>
+          <ion-badge *ngIf="c.estado !== 'pendiente'" slot="end" [color]="badgeEstado(c.estado)">{{ c.estado }}</ion-badge>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="nav.navigateForward('/clasificacion-tallas-form/' + c.id)">
+            <ion-icon name="create-outline" slot="above"></ion-icon>
+            Editar
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="eliminarTallas(c)">
+            <ion-icon name="trash-outline" slot="above"></ion-icon>
+            Eliminar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-item *ngIf="clasificacionesFiltradas.length === 0" lines="none">
+      <ion-label class="ion-text-center" color="medium">Sin registros</ion-label>
+    </ion-item>
+  </ng-container>
+
+  <!-- ── Lista: Muestras Sabor ─────────────────────────── -->
+  <ng-container *ngIf="tipoActivo === 'sabor'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let s of saboresFiltrados">
+        <ion-item-options side="start">
+          <ion-item-option *ngIf="s.estado === 'pendiente'" color="danger" (click)="declinarSabor(s)">
+            <ion-icon name="close-circle-outline" slot="above"></ion-icon>
+            Declinar
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item (click)="nav.navigateForward('/muestra-sabor-form/' + s.id, { queryParams: { modo: 'ver' } })">
+          <ion-icon name="water-outline" slot="start" color="warning"></ion-icon>
+          <ion-label>
+            <h2><strong>{{ s.fecha }}</strong></h2>
+            <p>Turno {{ s.turno }} · {{ s.tipo }}</p>
+            <p *ngIf="s.idUsuarioRealiza">Realizado por: {{ nombreUsuario(s.idUsuarioRealiza) }}</p>
+          </ion-label>
+          <ion-button *ngIf="s.estado === 'pendiente'" fill="solid" color="success" size="small" slot="end"
+            (click)="$event.stopPropagation(); validarSabor(s)">
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            Verificar
+          </ion-button>
+          <ion-badge *ngIf="s.estado !== 'pendiente'" slot="end" [color]="badgeEstado(s.estado)">{{ s.estado }}</ion-badge>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="nav.navigateForward('/muestra-sabor-form/' + s.id)">
+            <ion-icon name="create-outline" slot="above"></ion-icon>
+            Editar
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="eliminarSabor(s)">
+            <ion-icon name="trash-outline" slot="above"></ion-icon>
+            Eliminar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-item *ngIf="saboresFiltrados.length === 0" lines="none">
+      <ion-label class="ion-text-center" color="medium">Sin registros</ion-label>
+    </ion-item>
+  </ng-container>
+
+</ion-content>

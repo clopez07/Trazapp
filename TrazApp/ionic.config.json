@@ -1,0 +1,7 @@
+{
+  "name": "TrazApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

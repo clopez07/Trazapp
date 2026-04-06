@@ -1,0 +1,11 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { RecepcionFormPage } from './recepcion-form.page';
+
+const routes: Routes = [{ path: '', component: RecepcionFormPage }];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class RecepcionFormPageRoutingModule {}

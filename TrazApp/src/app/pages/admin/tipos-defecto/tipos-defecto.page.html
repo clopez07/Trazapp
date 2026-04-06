@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Tipos de Defecto</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="abrirForm()">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="cargar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let t of tipos">
+      <ion-item>
+        <ion-label>
+          <h2>{{ t.nombre }}</h2>
+          <p>{{ t.descripcion }}</p>
+        </ion-label>
+        <ion-badge slot="end" [color]="t.estado === 'activo' ? 'success' : 'medium'">{{ t.estado }}</ion-badge>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="abrirForm(t)">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+        <ion-item-option [color]="t.estado === 'activo' ? 'warning' : 'success'" (click)="toggleEstado(t)">
+          <ion-icon [name]="t.estado === 'activo' ? 'eye-off-outline' : 'eye-outline'" slot="icon-only"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="eliminar(t)">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

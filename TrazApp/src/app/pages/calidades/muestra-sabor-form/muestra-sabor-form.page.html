@@ -1,0 +1,217 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/calidades"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ soloLectura ? 'Ver' : (id ? 'Editar' : 'Nueva') }} Muestra de Sabor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- ── Encabezado ─────────────────────────────────────── -->
+  <ion-card>
+    <ion-card-header><ion-card-subtitle>Encabezado</ion-card-subtitle></ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Fecha</ion-label>
+        <ion-input type="date" [(ngModel)]="muestra.fecha" [disabled]="soloLectura"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Turno</ion-label>
+        <ion-segment [(ngModel)]="muestra.turno" [disabled]="soloLectura" style="width:100%;margin-top:8px">
+          <ion-segment-button value="A"><ion-label>Turno A</ion-label></ion-segment-button>
+          <ion-segment-button value="B"><ion-label>Turno B</ion-label></ion-segment-button>
+        </ion-segment>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-segment [(ngModel)]="muestra.tipo" [disabled]="soloLectura" style="width:100%;margin-top:8px">
+          <ion-segment-button value="proceso"><ion-label>Proceso</ion-label></ion-segment-button>
+          <ion-segment-button value="proxcos"><ion-label>Proxcos</ion-label></ion-segment-button>
+        </ion-segment>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ── Panelistas (solo edición) ─────────────────────── -->
+  <ion-card *ngIf="!soloLectura">
+    <ion-card-header><ion-card-subtitle>Panelistas</ion-card-subtitle></ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let p of panelistas">
+        <ion-checkbox slot="start"
+          [checked]="panelistasSeleccionados.includes(p.id!)"
+          (ionChange)="togglePanelista(p.id!, $event.detail.checked)">
+        </ion-checkbox>
+        <ion-label>{{ p.nombre }}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ── Códigos de Lote ────────────────────────────────── -->
+  <ion-card>
+    <ion-card-header><ion-card-subtitle>Códigos de Lote{{ !soloLectura ? ' (máx. 6)' : '' }}</ion-card-subtitle></ion-card-header>
+    <ion-card-content>
+
+      <ion-card *ngFor="let c of codigos; let i = index">
+        <ion-card-header>
+          <ion-card-subtitle>Código {{ i + 1 }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+
+          <ion-item>
+            <ion-label position="stacked">Código</ion-label>
+            <ion-input [(ngModel)]="c.codigo" placeholder="Ej: L-001" [disabled]="soloLectura"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!soloLectura">
+            <ion-label>Cliente</ion-label>
+            <ion-select [(ngModel)]="c.idCliente" (ionChange)="onCodigoClienteChange(c)">
+              <ion-select-option *ngFor="let cl of clientes" [value]="cl.id">{{ cl.nombre }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="soloLectura" lines="none">
+            <ion-label><p color="medium">Cliente</p><strong>{{ nombreCliente(c.idCliente) }}</strong></ion-label>
+          </ion-item>
+
+          <ion-item *ngIf="!soloLectura">
+            <ion-label>Finca</ion-label>
+            <ion-select [(ngModel)]="c.idFinca" (ionChange)="onCodigoFincaChange(c)">
+              <ion-select-option *ngFor="let f of c.fincas" [value]="f.id">{{ f.nombre }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="soloLectura" lines="none">
+            <ion-label><p color="medium">Finca</p><strong>{{ nombreFinca(c.idFinca) }}</strong></ion-label>
+          </ion-item>
+
+          <ion-item *ngIf="!soloLectura">
+            <ion-label>Laguna</ion-label>
+            <ion-select [(ngModel)]="c.idLaguna">
+              <ion-select-option *ngFor="let l of c.lagunas" [value]="l.id">{{ l.nombre }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="soloLectura" lines="none">
+            <ion-label><p color="medium">Laguna</p><strong>{{ nombreLaguna(c.idLaguna) }}</strong></ion-label>
+          </ion-item>
+
+          <!-- Calificaciones por panelista -->
+          <ng-container *ngIf="c.calificaciones.length > 0">
+            <ion-item-divider style="margin-top:8px">
+              <ion-label>Calificaciones</ion-label>
+            </ion-item-divider>
+            <ion-item *ngFor="let cal of c.calificaciones">
+              <ion-label>{{ nombrePanelista(cal.idPanelista) }}</ion-label>
+              <ion-input type="number" slot="end" min="0" max="10" inputmode="numeric"
+                [(ngModel)]="cal.nota"
+                (ionChange)="calcularPromedio(c)"
+                [disabled]="soloLectura"
+                style="max-width:70px;text-align:right">
+              </ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>
+                <strong>Promedio: {{ c.promedio }}</strong>
+                <ion-badge [color]="estadoCodigo(c).color" style="margin-left:8px">{{ estadoCodigo(c).texto }}</ion-badge>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button *ngIf="!soloLectura" expand="block" fill="outline" (click)="agregarCodigo()" [disabled]="codigos.length >= 6">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon> Agregar Código
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ── Observaciones ──────────────────────────────────── -->
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Observaciones</ion-label>
+        <ion-textarea [(ngModel)]="muestra.observaciones" rows="2" [disabled]="soloLectura"></ion-textarea>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ── Realizado por ──────────────────────────────────── -->
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Realizado por</ion-label>
+        <ion-select [(ngModel)]="muestra.idUsuarioRealiza" placeholder="Seleccionar" [disabled]="soloLectura">
+          <ion-select-option *ngFor="let u of usuarios" [value]="u.id">{{ u.nombre }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ── GPS ─────────────────────────────────────────────── -->
+  <ion-card *ngIf="!soloLectura || muestra.latitud">
+    <ion-card-header><ion-card-subtitle>Ubicación GPS</ion-card-subtitle></ion-card-header>
+    <ion-card-content>
+      <ion-button *ngIf="!soloLectura" expand="block" (click)="obtenerUbicacion()" [disabled]="obteniendoGps">
+        <ion-icon name="locate-outline" slot="start"></ion-icon>
+        {{ obteniendoGps ? 'Obteniendo...' : 'Capturar Ubicación' }}
+      </ion-button>
+      <ion-item *ngIf="muestra.latitud" lines="none">
+        <ion-icon name="location-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <p><strong>Lat:</strong> {{ muestra.latitud | number:'1.6-6' }}</p>
+          <p><strong>Lng:</strong> {{ muestra.longitud | number:'1.6-6' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ── Fotos ─────────────────────────────────────────── -->
+  <ion-card *ngIf="!soloLectura || fotos.length > 0">
+    <ion-card-header><ion-card-subtitle>Fotografías</ion-card-subtitle></ion-card-header>
+    <ion-card-content>
+      <ion-grid *ngIf="fotos.length > 0">
+        <ion-row>
+          <ion-col size="6" *ngFor="let f of fotos; let i = index">
+            <div style="position:relative">
+              <img [src]="f.pathLocal" style="width:100%;border-radius:8px;cursor:pointer" (click)="abrirFoto(f.pathLocal)">
+              <ion-button *ngIf="!soloLectura" fill="clear" color="danger" size="small"
+                style="position:absolute;top:0;right:0"
+                (click)="quitarFoto(i)">
+                <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-button *ngIf="!soloLectura" expand="block" (click)="agregarFoto(cameraSource.Camera)">
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        Tomar Foto
+      </ion-button>
+      <ion-button *ngIf="!soloLectura" expand="block" fill="outline" (click)="agregarFoto(cameraSource.Photos)">
+        <ion-icon name="image-outline" slot="start"></ion-icon>
+        Importar de Galería
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button *ngIf="soloLectura && muestra.estado === 'pendiente'" expand="block" color="success" (click)="verificar()">
+    <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+    Verificar
+  </ion-button>
+
+  <ion-button *ngIf="!soloLectura" expand="block" color="primary" (click)="guardar()">
+    <ion-icon name="save-outline" slot="start"></ion-icon>
+    Guardar
+  </ion-button>
+
+  <!-- ── Lightbox ───────────────────────────────────────── -->
+  <div *ngIf="fotoAmpliada"
+    style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.93);z-index:9999;display:flex;align-items:center;justify-content:center;"
+    (click)="cerrarFoto()">
+    <img [src]="fotoAmpliada" style="max-width:95%;max-height:90vh;border-radius:8px;object-fit:contain" (click)="$event.stopPropagation()">
+    <ion-button fill="clear" color="light" style="position:absolute;top:12px;right:12px" (click)="cerrarFoto()">
+      <ion-icon name="close-circle" slot="icon-only" style="font-size:36px"></ion-icon>
+    </ion-button>
+  </div>
+
+</ion-content>
