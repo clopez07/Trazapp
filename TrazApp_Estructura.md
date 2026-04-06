@@ -1,598 +1,292 @@
-# TrazApp — Estructura del proyecto
-> Sistema de Trazabilidad y Control de Calidad en Recepción de Camarón
-> Stack: Ionic + Angular + JSON Server
-> Actualizado: 2026-04-04
 
----
 
-## Índice
-1. [Requisitos previos](#1-requisitos-previos)
-2. [Crear el proyecto](#2-crear-el-proyecto)
-3. [Instalar dependencias](#3-instalar-dependencias)
-4. [Estructura de carpetas](#4-estructura-de-carpetas)
-5. [Modelos](#5-modelos)
-6. [Servicios](#6-servicios)
-7. [Páginas](#7-páginas)
-8. [Rutas](#8-rutas)
-9. [Side Menu](#9-side-menu)
-10. [db.json — tablas y campos](#10-dbjson--tablas-y-campos)
-11. [Endpoints de la API](#11-endpoints-de-la-api)
-12. [Plugins de Capacitor](#12-plugins-de-capacitor)
-13. [Orden de desarrollo recomendado](#13-orden-de-desarrollo-recomendado)
-14. [Comandos útiles](#14-comandos-útiles)
 
----
+TrazApp
+Sistema de Trazabilidad y Control de Calidad
+en Recepción de Camarón
+
+Especificación del Proyecto
+Ionic con Angular — JSON Server — Capacitor
+
+
+ 
+1. Objetivo General del Proyecto
+Desarrollar una aplicación móvil funcional llamada TrazApp, utilizando Ionic con Angular, que permita registrar, consultar, actualizar y eliminar los registros de calidad y trazabilidad del área de recepción de materia prima en una empacadora de camarón. La aplicación integra geolocalización, captura de imágenes, filtros de búsqueda y consumo de una API REST implementada con JSON Server, digitalizando cuatro formularios que actualmente se gestionan en papel dentro de la planta.
+2. Alcance Mínimo Esperado
+•	Interfaz móvil completa con navegación clara mediante Side Menu y estructura modular por páginas.
+•	Consumo de API REST creada con JSON Server mediante HttpClient de Angular.
+•	Implementación de 14 tablas, justificadas por la naturaleza real del proyecto.
+•	Operaciones completas de mostrar, mostrar por id, insertar, actualizar y eliminar en las entidades principales.
+•	Uso obligatorio de Geolocation y Camera como plugins nativos de Capacitor.
+•	Las imágenes se guardarán en el dispositivo usando Capacitor Filesystem; la API almacenará la referencia del archivo.
+3. Tema del Proyecto
+Nombre: TrazApp — Sistema de Trazabilidad y Control de Calidad en Recepción de Camarón.
+
+TrazApp nace de una necesidad real identificada en una empacadora de camarón activa. Actualmente el área de recepción de materia prima gestiona sus registros de calidad y trazabilidad de forma manual en papel, utilizando aproximadamente 50 formularios de distintos tipos. Ninguno de estos registros se encuentra digitalizado en un sistema.
+La aplicación digitalizará los siguientes cuatro formularios del área de recepción:
+•	Trazabilidad de Producto: registro por bin de número y libras, con datos de cliente, finca, laguna, fechas de cosecha y recibo, y remisión SAG centralizados por encabezado de recepción.
+•	Calidad de Camarón Entero: evaluación de defectos físicos por muestra con totales de defecto, nítido y suma general. Los tipos de defecto son parametrizables desde un catálogo administrable.
+•	Clasificación de Tallas en Camarón Entero: conteo de unidades por peso en gramos con porcentaje por rango de talla y cálculo automático de talla dominante.
+•	Resumen de Muestras de Sabor: panel de cata donde múltiples panelistas califican lotes del 0 al 10 con total de respuestas por código.
+4. Estructura de Datos
+TrazApp utiliza 14 tablas organizadas en tres grupos: tablas maestras (catálogos compartidos), tabla de parametrización y tablas transaccionales (una por formulario digitalizado, con sus respectivas tablas de detalle hijo).
+4.1 Tablas Maestras (Catálogos)
+Tabla	Propósito	Campos implementados	Tipo
+clientes	Empresas compradoras del camarón	id, nombre, estado	Obligatoria
+fincas	Fincas acuícolas proveedoras	id, nombre, idCliente, estado	Obligatoria
+lagunas	Lagunas de cultivo por finca	id, nombre, idFinca, estado	Obligatoria
+usuarios	Inspectores, verificadores y panelistas de planta	id, nombre, rol, correo, telefono, estado	Obligatoria
+
+Roles de usuario implementados: admin, supervisor, inspector, verificador, panelista, operario.
+4.2 Tabla de Parametrización
+Tabla	Propósito	Campos implementados	Tipo
+tipos_defecto	Catálogo administrable de tipos de defecto físico para el formulario Calidad de Camarón Entero. Solo el administrador puede crear, editar o desactivar tipos.	id, nombre, descripcion, estado	Obligatoria
+
+Esta tabla reemplaza las columnas fijas del formulario STB/ACC/R001. El formulario se genera dinámicamente leyendo los tipos activos, lo que permite agregar o desactivar defectos sin modificar el código de la aplicación. No se permite eliminar un tipo que ya tenga registros asociados; solo se desactiva.
+4.3 Tablas Transaccionales (Formularios Digitalizados)
+Tabla	Formulario origen	Campos implementados	Tipo
+trazabilidad_recepcion	Trazabilidad de Producto	id, loteInterno, fecha, turno, idCliente, idFinca, idLaguna, fechaCosecha, horaCosecha, horaRecibido, remisionSAG, numeroAutorizacion, idUsuarioRealiza, observaciones, correcciones, latitud, longitud	Obligatoria
+detalle_bins	Trazabilidad de Producto	id, idRecepcion, numeroBin, cantidadLibras, horaInicioProceso, estado	Obligatoria
+calidad_entero	Calidad de Camarón Entero	id, fecha, turno, tipo, idRecepcion, loteInterno, idCliente, idFinca, idLaguna, gramos, observacion, correccion, supervisor, idUsuarioRealiza, estado, idUsuarioVerifica, latitud, longitud	Obligatoria
+detalle_calidad	Calidad de Camarón Entero	id, idCalidad, idTipoDefecto, cantidad, esNitido	Obligatoria
+clasificacion_tallas	Clasificación de Tallas en Camarón Entero	id, fecha, turno, tipo, idRecepcion, loteInterno, idCliente, idFinca, idLaguna, pesoMuestra, tallaDominante, idUsuarioRealiza, estado, idUsuarioVerifica, latitud, longitud	Obligatoria
+detalle_tallas	Clasificación de Tallas en Camarón Entero	id, idClasif, rangoTalla, pesoGramos, cantidad, porcentaje	Obligatoria
+muestras_sabor	Resumen de Muestras de Sabor	id, fecha, tipo, turno, idUsuarioRealiza, observaciones, estado, idUsuarioVerifica, latitud, longitud	Obligatoria
+detalle_sabor	Resumen de Muestras de Sabor	id, idMuestra, codigo, idCliente, idFinca, idLaguna, idPanelista, calificacion, totalRespuestas	Obligatoria
+fotos	Evidencia fotográfica	id, idRegistro, tipoRegistro, pathLocal, nombreArchivo, latitud, longitud, fechaFoto	Obligatoria
+
+Decisiones de diseño adoptadas
+•	Los campos idCliente, idFinca, idLaguna, fechaCosecha, horaCosecha, horaRecibido, remisionSAG y numeroAutorizacion se centralizaron en el encabezado trazabilidad_recepcion. En el formulario original cada bin los repetía; en TrazApp una recepción corresponde a un solo lote de un solo cliente/finca/laguna, lo que elimina redundancia sin perder trazabilidad.
+•	detalle_bins registra el estado operativo de cada bin (pendiente / procesado) y la horaInicioProceso, datos que el formulario original no capturaba.
+•	loteInterno en trazabilidad_recepcion se genera automáticamente con el patrón R-YYYY-MM-DD-NNNN y se desnormaliza en calidad_entero y clasificacion_tallas para acceso rápido sin JOINs.
+•	tallaDominante en clasificacion_tallas se calcula automáticamente en el formulario seleccionando el rango con mayor porcentaje acumulado.
+•	Los registros de calidad incorporan un campo estado (pendiente / verificado / declinado) que permite el flujo de aprobación por supervisor.
+5. Requerimientos Funcionales Obligatorios
+5.1 Gestión de Trazabilidad de Recepción
+•	Registrar encabezados de recepción con lote interno auto-generado, fecha, turno (A/B mediante botones de selección directa), cliente, finca, laguna, fechas y horas de cosecha y recibo, remisión SAG, número de autorización y usuario que realiza (campo "Realizado por").
+•	Agregar múltiples bins por recepción con número de bin, libras y estado (pendiente/procesado).
+•	Listar recepciones con buscador y filtro por turno en pantalla principal.
+•	Consultar el detalle de una recepción mostrando cabecera completa y todos sus bins con estado visual.
+•	Editar datos del encabezado desde el formulario de recepción.
+•	Eliminar con mensaje de confirmación.
+•	Capturar coordenadas GPS del punto de recepción; mostrar latitud y longitud en el detalle.
+•	Adjuntar fotos desde cámara o galería asociadas a la recepción.
+•	Registrar observaciones y acciones correctivas aplicadas.
+5.2 Gestión de Calidad de Camarón Entero
+•	Registrar evaluaciones de calidad vinculadas a un lote (recepción) con cliente, finca y laguna heredados.
+•	El formulario cargará dinámicamente los tipos de defecto activos desde el catálogo tipos_defecto.
+•	Ingresar cantidad de unidades por tipo de defecto.
+•	Calcular automáticamente suma de defectos, suma de nítidos y total de la muestra.
+•	Registrar gramaje de la muestra.
+•	Seleccionar turno (A/B) y tipo de proceso (Proceso/Proxco) mediante botones de selección directa.
+•	Flujo de aprobación: pendiente → verificado/declinado. Solo el verificador puede cambiar el estado.
+•	Listar evaluaciones con filtro por turno y estado; visualización diferenciada por color según estado.
+•	Operación de eliminar con confirmación mediante deslizamiento (swipe izquierdo).
+5.3 Administración de Tipos de Defecto
+•	Pantalla exclusiva para administrador que permite crear, editar y desactivar tipos de defecto.
+•	Cada tipo de defecto tiene nombre, descripción y estado (activo/inactivo).
+•	Solo los tipos con estado activo aparecen en el formulario de calidad de camarón entero.
+•	No se permite eliminar un tipo de defecto que ya tenga registros asociados; solo se desactiva.
+•	Al intentar eliminar un tipo con registros, se muestra un mensaje informativo con el número de registros vinculados.
+5.4 Clasificación de Tallas
+•	Registrar clasificación por lote vinculada a una recepción con cliente, finca y laguna heredados.
+•	Seleccionar turno y tipo de proceso mediante botones de selección directa.
+•	Agregar conteo de unidades por rango de talla (8 grupos: 10-20 g hasta 80-100 g) con peso en gramos.
+•	Calcular automáticamente totales y porcentajes por rango.
+•	Calcular automáticamente la talla dominante (rango con mayor porcentaje).
+•	Flujo de aprobación: pendiente → verificado/declinado.
+•	Operación de eliminar con confirmación mediante deslizamiento (swipe izquierdo).
+5.5 Muestras de Sabor — Panel de Cata
+•	Registrar sesión de cata con tipo, turno (mediante botones de selección directa) y panelistas participantes.
+•	Agregar hasta 6 códigos de lote por sesión, cada uno con su cliente, finca y laguna.
+•	Cada panelista ingresa su calificación (0–10) por cada lote evaluado.
+•	Calcular promedio y total de respuestas por lote automáticamente.
+•	Flujo de aprobación: pendiente → verificado/declinado.
+•	Operación de eliminar con confirmación mediante deslizamiento (swipe izquierdo).
+5.6 Geolocalización
+•	La aplicación obtendrá la ubicación actual del dispositivo mediante Capacitor Geolocation.
+•	La latitud y longitud se capturan mediante botón "Capturar Ubicación" en los formularios de recepción y calidad.
+•	Las coordenadas se almacenan en el registro y se muestran en el detalle de la recepción.
+5.7 Cámara y Galería
+•	La app permitirá tomar una foto o seleccionar una desde la galería mediante Capacitor Camera.
+•	La foto se asociará al registro correspondiente mediante la tabla fotos.
+•	La imagen se mantendrá disponible después de cerrar la aplicación usando Capacitor Filesystem.
+•	La API almacenará la referencia (path local) de cada imagen.
+5.8 Filtros y Búsquedas
+•	Buscador por número de bin o texto libre en listado de recepciones.
+•	Filtro por turno (A/B) en listados de recepciones y calidades.
+•	Los filtros actualizarán la información mostrada sin recargar la aplicación.
+5.9 Visualización por Estado
+•	Registros verificados/aprobados con indicador visual en verde.
+•	Registros pendientes con indicador visual en amarillo.
+•	Registros declinados/rechazados con indicador visual en rojo.
+•	La diferencia será evidente mediante badge de color en cada ítem de lista.
+6. Funcionalidades Adicionales Implementadas
+•	Dashboard con conteo de bins recibidos, evaluaciones de calidad entero realizadas y muestras de sabor registradas.
+•	Gestión completa CRUD de catálogos: clientes, fincas, lagunas, usuarios con activación/desactivación.
+•	Cascading dropdowns: al seleccionar cliente se cargan solo sus fincas activas; al seleccionar finca se cargan solo sus lagunas activas.
+•	Selector de turno y tipo de proceso como botones de selección directa (ion-segment) para uso táctil en planta.
+•	Lote interno generado automáticamente con patrón R-YYYY-MM-DD-NNNN correlativo por día.
+•	Selector de lote en formularios de calidad con información de cliente, finca y laguna para facilitar la identificación.
+•	Bins con estado (pendiente/procesado) e icono de estado en la lista.
+•	Campo correcciones en recepción para registrar acciones correctivas aplicadas.
+•	Validación antes de eliminar tipos de defecto: bloquea eliminación si existen registros asociados.
+7. Requerimientos Técnicos
+•	Framework obligatorio: Ionic con Angular.
+•	API implementada con JSON Server.
+•	Consumo de datos mediante HttpClient de Angular.
+•	Organización del código en carpetas: pages/, services/ y models/.
+•	Navegación mediante Side Menu con acceso a los módulos principales.
+•	Plugins nativos de Capacitor: Geolocation y Camera (obligatorios); Filesystem (para persistencia de fotos).
+•	Código comentado en servicios y componentes principales.
+•	Nombres de variables, servicios y modelos descriptivos y consistentes.
+•	La lógica no se escribirá en un solo archivo; separación estricta de responsabilidades.
+•	Interceptor HTTP (NumericIdInterceptor) para normalización de tipos de ID entre frontend y API.
+8. Pantallas Implementadas
+#	Pantalla	Descripción
+1	Inicio / Dashboard	Resumen de conteos globales (bins, calidades, sabores). Accesos rápidos a cada módulo.
+2	Listado de recepciones	Lista de registros con buscador y filtro por turno.
+3	Detalle de recepción	Cabecera del registro con tabla de bins, estado por bin e íconos de estado.
+4	Formulario de recepción	Inserción y edición del encabezado, gestión de bins, captura GPS y fotos. Turno mediante botones directos.
+5	Listado de calidades	Tres pestañas: calidad entero, clasificación de tallas, muestras de sabor. Swipe para editar/eliminar.
+6	Formulario de calidad entero	Carga dinámica de tipos de defecto activos y cálculo automático de totales.
+7	Formulario de clasificación de tallas	Tabla de conteo por rango con porcentajes y talla dominante calculados automáticamente.
+8	Formulario de muestra de sabor	Encabezado de sesión, calificaciones por panelista y lote, resumen final con promedio.
+9	Catálogos	Gestión de clientes, fincas, lagunas y usuarios con CRUD completo y activación/desactivación.
+10	Tipos de defecto (Admin)	Creación, edición y desactivación de tipos de defecto. Eliminación protegida si tiene registros.
+
+9. Reglas de Interfaz y Experiencia de Usuario
+•	Interfaz limpia, ordenada y apta para uso en planta (pantalla táctil, condiciones de trabajo exigentes).
+•	Uso de componentes Ionic: ion-card, ion-list, ion-button, ion-input, ion-alert, ion-toast, ion-segment.
+•	Validación visual en formularios para campos obligatorios con mensajes de error claros mediante ion-toast.
+•	Las acciones de guardar, actualizar y eliminar informarán al usuario mediante toast o alert de confirmación.
+•	Los contadores de defectos y selectores de turno/tipo serán de tamaño suficiente para uso táctil cómodo en planta.
+•	Swipe izquierdo (ion-item-sliding) en listas de calidades para acceder a Editar y Eliminar.
+•	Swipe derecho en listas de calidades para acceder a la opción Declinar.
+10. Lineamientos Específicos de la API JSON Server
+El archivo db.json contendrá datos iniciales para todas las entidades. A continuación se detallan los endpoints implementados:
+Endpoint	Descripción
+GET /trazabilidad_recepcion	Listar todos los encabezados de recepción
+GET /trazabilidad_recepcion/:id	Obtener recepción por ID
+POST /trazabilidad_recepcion	Crear nuevo registro de recepción
+PATCH /trazabilidad_recepcion/:id	Actualizar recepción existente
+DELETE /trazabilidad_recepcion/:id	Eliminar recepción
+GET /detalle_bins?idRecepcion=X	Obtener bins de una recepción específica
+POST /detalle_bins	Agregar bin a una recepción
+PATCH /detalle_bins/:id	Actualizar estado de un bin
+DELETE /detalle_bins/:id	Eliminar bin
+GET /tipos_defecto	Listar todos los tipos de defecto
+POST /tipos_defecto	Crear nuevo tipo de defecto
+PATCH /tipos_defecto/:id	Actualizar o desactivar tipo de defecto
+DELETE /tipos_defecto/:id	Eliminar tipo de defecto (solo si no tiene registros)
+GET /calidad_entero	Listar evaluaciones de calidad de camarón entero
+GET /calidad_entero/:id	Obtener evaluación por ID
+POST /calidad_entero	Registrar nueva evaluación de calidad
+PATCH /calidad_entero/:id	Actualizar evaluación existente
+DELETE /calidad_entero/:id	Eliminar evaluación
+GET /detalle_calidad?idCalidad=X	Obtener defectos registrados por evaluación
+POST /detalle_calidad	Registrar detalle de defecto
+PATCH /detalle_calidad/:id	Actualizar detalle de defecto
+GET /detalle_calidad?idTipoDefecto=X	Verificar registros asociados a un tipo de defecto
+GET /clasificacion_tallas	Listar clasificaciones de talla
+GET /clasificacion_tallas/:id	Obtener clasificación por ID
+POST /clasificacion_tallas	Registrar nueva clasificación
+PATCH /clasificacion_tallas/:id	Actualizar clasificación
+DELETE /clasificacion_tallas/:id	Eliminar clasificación
+GET /detalle_tallas?idClasif=X	Obtener detalles de talla por clasificación
+POST /detalle_tallas	Registrar detalle de talla
+PATCH /detalle_tallas/:id	Actualizar detalle de talla
+GET /muestras_sabor	Listar sesiones de cata
+GET /muestras_sabor/:id	Obtener sesión por ID
+POST /muestras_sabor	Registrar nueva sesión de cata
+PATCH /muestras_sabor/:id	Actualizar sesión
+DELETE /muestras_sabor/:id	Eliminar sesión
+GET /detalle_sabor?idMuestra=X	Obtener calificaciones por sesión
+POST /detalle_sabor	Registrar calificación de panelista
+PATCH /detalle_sabor/:id	Actualizar calificación
+GET /clientes	Catálogo de clientes
+POST /clientes	Crear cliente
+PATCH /clientes/:id	Actualizar cliente
+GET /fincas	Catálogo de fincas
+GET /fincas?idCliente=X&estado=activo	Fincas activas de un cliente
+POST /fincas	Crear finca
+PATCH /fincas/:id	Actualizar finca
+GET /lagunas	Catálogo de lagunas
+GET /lagunas?idFinca=X&estado=activo	Lagunas activas de una finca
+POST /lagunas	Crear laguna
+PATCH /lagunas/:id	Actualizar laguna
+GET /usuarios	Catálogo de usuarios
+GET /usuarios?rol=panelista&estado=activo	Panelistas activos
+GET /usuarios?rol=verificador	Verificadores
+POST /usuarios	Crear usuario
+PATCH /usuarios/:id	Actualizar usuario
+GET /fotos?idRegistro=X	Obtener fotos asociadas a un registro
+POST /fotos	Registrar referencia de foto
+
+11. Estructura de Archivos del Proyecto
+
+Trazapp/
+├── Api-Trazapp/
+│   └── db.json                        # Base de datos JSON (14 colecciones)
+├── TrazApp/
+│   └── src/
+│       └── app/
+│           ├── interceptors/
+│           │   └── numeric-id.interceptor.ts
+│           ├── models/                # 14 interfaces TypeScript
+│           │   ├── calidad-entero.model.ts
+│           │   ├── clasificacion-tallas.model.ts
+│           │   ├── cliente.model.ts
+│           │   ├── detalle-bin.model.ts
+│           │   ├── detalle-calidad.model.ts
+│           │   ├── detalle-sabor.model.ts
+│           │   ├── detalle-talla.model.ts
+│           │   ├── finca.model.ts
+│           │   ├── foto.model.ts
+│           │   ├── laguna.model.ts
+│           │   ├── muestra-sabor.model.ts
+│           │   ├── tipo-defecto.model.ts
+│           │   ├── trazabilidad-recepcion.model.ts
+│           │   └── usuario.model.ts
+│           ├── services/              # 10 servicios Angular
+│           │   ├── calidad-entero.service.ts
+│           │   ├── clasificacion-tallas.service.ts
+│           │   ├── cliente.service.ts
+│           │   ├── finca.service.ts
+│           │   ├── foto.service.ts
+│           │   ├── laguna.service.ts
+│           │   ├── muestra-sabor.service.ts
+│           │   ├── tipo-defecto.service.ts
+│           │   ├── trazabilidad.service.ts
+│           │   └── usuario.service.ts
+│           └── pages/                 # 15 páginas + componentes inline
+│               ├── dashboard/
+│               ├── recepciones/
+│               │   ├── recepciones-lista/
+│               │   ├── recepcion-detalle/
+│               │   └── recepcion-form/
+│               ├── calidades/
+│               │   ├── calidades-lista/
+│               │   ├── calidad-entero-form/
+│               │   ├── clasificacion-tallas-form/
+│               │   └── muestra-sabor-form/
+│               ├── catalogos/
+│               │   ├── catalogos-menu/
+│               │   ├── clientes/
+│               │   ├── fincas/           (incluye finca-form component)
+│               │   ├── lagunas/          (incluye laguna-form component)
+│               │   └── usuarios/         (incluye usuario-form component)
+│               └── admin/
+│                   └── tipos-defecto/
+└── README.md
+└── TrazApp_Estructura.md
+
+12. Entregables del Estudiante
+•	Proyecto Ionic funcional con todos los módulos implementados.
+•	Archivo db.json con datos iniciales representativos (mínimo 2 registros por tabla).
+•	Capturas de pantalla o video corto demostrando el funcionamiento de cada módulo.
+•	Explicación breve de las 14 tablas utilizadas y su correspondencia con los formularios reales de planta.
+•	Evidencia del uso de geolocalización (coordenadas capturadas en formulario) y cámara (foto adjunta a un registro).
+•	Manual corto de ejecución: cómo correr JSON Server y cómo iniciar el proyecto Ionic.
 
-## 1. Requisitos previos
 
-- Node.js v18 o superior
-- npm v9 o superior
-- Ionic CLI: `npm install -g @ionic/cli`
-- JSON Server: `npm install -g json-server`
-- Android Studio (para pruebas en dispositivo)
-
----
-
-## 2. Crear el proyecto
-
-```bash
-ionic start TrazApp sidemenu --type=angular
-cd TrazApp
-ionic serve
-```
-
----
-
-## 3. Instalar dependencias
-
-```bash
-npm install @capacitor/geolocation
-npm install @capacitor/camera
-npm install @capacitor/filesystem
-npx cap sync
-```
-
----
-
-## 4. Estructura de carpetas
-
-```
-TrazApp/
-├── db.json                          ← JSON Server (raíz del proyecto)
-└── src/
-    └── app/
-        ├── models/                  ← Interfaces TypeScript
-        ├── services/                ← Consumo de API
-        └── pages/                   ← Pantallas de la app
-            ├── dashboard/
-            ├── recepciones/
-            │   ├── recepciones-lista/
-            │   ├── recepcion-detalle/
-            │   └── recepcion-form/
-            ├── calidades/
-            │   ├── calidades-lista/
-            │   ├── calidad-entero-form/
-            │   ├── clasificacion-tallas-form/
-            │   └── muestra-sabor-form/
-            ├── catalogos/
-            │   ├── catalogos-menu/
-            │   ├── clientes/
-            │   ├── fincas/
-            │   ├── lagunas/
-            │   └── usuarios/
-            └── admin/
-                └── tipos-defecto/
-```
-
----
-
-## 5. Modelos
-
-Un archivo por cada tabla. Todos van en `src/app/models/`.
-
-| Archivo | Tabla que representa |
-|---|---|
-| `cliente.model.ts` | clientes |
-| `finca.model.ts` | fincas |
-| `laguna.model.ts` | lagunas |
-| `usuario.model.ts` | usuarios |
-| `tipo-defecto.model.ts` | tipos_defecto |
-| `trazabilidad-recepcion.model.ts` | trazabilidad_recepcion |
-| `detalle-bin.model.ts` | detalle_bins |
-| `calidad-entero.model.ts` | calidad_entero |
-| `detalle-calidad.model.ts` | detalle_calidad |
-| `clasificacion-tallas.model.ts` | clasificacion_tallas |
-| `detalle-talla.model.ts` | detalle_tallas |
-| `muestra-sabor.model.ts` | muestras_sabor |
-| `detalle-sabor.model.ts` | detalle_sabor |
-| `foto.model.ts` | fotos |
-
----
-
-## 6. Servicios
-
-Un archivo por cada entidad principal. Todos van en `src/app/services/`.  
-Cada servicio usa `HttpClient` para consumir la API de JSON Server.
-
-| Archivo | Tablas que consume |
-|---|---|
-| `cliente.service.ts` | clientes |
-| `finca.service.ts` | fincas |
-| `laguna.service.ts` | lagunas |
-| `usuario.service.ts` | usuarios |
-| `tipo-defecto.service.ts` | tipos_defecto |
-| `trazabilidad.service.ts` | trazabilidad_recepcion + detalle_bins |
-| `calidad-entero.service.ts` | calidad_entero + detalle_calidad |
-| `clasificacion-tallas.service.ts` | clasificacion_tallas + detalle_tallas |
-| `muestra-sabor.service.ts` | muestras_sabor + detalle_sabor |
-| `foto.service.ts` | fotos |
-
----
-
-## 7. Páginas
-
-### Dashboard
-- Resumen del día: total de bins recibidos, evaluaciones realizadas, muestras de sabor
-- Accesos rápidos a cada módulo
-
----
-
-### Recepciones — Lista
-- Lista de recepciones con ion-card
-- Buscador por número de bin o cliente
-- Filtros: turno (A/B) y estado
-- Sección superior: recepciones activas
-- Sección inferior: recepciones inactivas
-- Botón FAB para nueva recepción
-
-### Recepciones — Detalle
-- Encabezado del registro (fecha, turno, inspector, verificador)
-- Tabla de bins asociados con todas sus columnas
-- Coordenadas GPS del punto de recepción
-- Fotos del lote
-- Botones: editar, agregar bin, eliminar
-
-### Recepciones — Formulario (insertar y editar)
-- Campos del encabezado: fecha, turno, inspector, verificador, observaciones
-- Captura automática de GPS al abrir el formulario
-- Captura de foto (cámara o galería)
-- Lista de bins agregados con botón para agregar más
-- Cada bin tiene: número de bin, libras, cliente, finca, laguna, remisión SAG, fechas y horas
-
----
-
-### Calidades — Lista (`/calidades`)
-- Menú principal con 3 opciones: Calidad Camarón Entero, Clasificación de Tallas, Muestras de Sabor.
-- Al seleccionar un tipo se muestra su lista con botón **+** en el header para crear nuevo registro.
-- Cada ítem de la lista muestra:
-  - Badge **Verificado** (verde) o **Pendiente** (amarillo).
-  - Botón pequeño **Verificar** debajo del badge cuando el registro está pendiente.
-    - Usa `$event.stopPropagation()` para no disparar la navegación del `ion-item`.
-    - Abre `AlertController` con lista de radio de usuarios → ejecuta PATCH `{ verificado: true, idUsuarioVerifica }`.
-  - Deslizar a la izquierda → opción **Editar** (navega al formulario sin `?modo=ver`).
-  - Tap en el ítem → navega al formulario con `?modo=ver` (solo lectura).
-- Funciones de verificación por tipo: `verificar(c)` · `verificarTallas(c)` · `verificarSabor(s)`.
-
-### Calidad Entero — Formulario (`/calidad-entero-form/:id`)
-- Encabezado: fecha, turno, tipo (proceso/proxco).
-- Lote: selector de recepción (loteInterno); autocompleta cliente / finca / laguna.
-- Peso muestra (g).
-- Tabla de defectos: un input por cada `TipoDefecto` activo + nítidos (cargados dinámicamente).
-- Totales calculados automáticamente: suma defectos, suma nítidos, total muestra.
-- Observación, corrección, supervisor.
-- Realizado por (selector de usuario).
-- Botón **Verificar** visible en modo `soloLectura && !calidad.verificado`: abre AlertController con radio de usuarios → llama `svc.update(id, { verificado: true, idUsuarioVerifica })`.
-- Botón **Guardar** visible en modo edición: registra encabezado en `calidad_entero` y una fila por defecto en `detalle_calidad`.
-
-### Clasificación de Tallas — Formulario (`/clasificacion-tallas-form/:id`)
-- Encabezado: fecha, turno, proceso (proceso/proxco).
-- Lote: selector de recepción; autocompleta cliente / finca / laguna.
-- Peso muestra (g).
-- Grilla de conteo por gramaje: 8 rangos de talla (10–20, 20–30, 30–40, 40–50, 50–60, 60–70, 70–80, 80–100), cada rango con múltiples pesos en gramos.
-  - Cada celda muestra etiqueta de peso + input de cantidad.
-  - Subtotal y porcentaje por grupo calculados automáticamente.
-- Resumen: total camarones, talla dominante (auto-calculado), cobertura.
-- Realizado por (selector de usuario).
-- Botón **Verificar** visible en `soloLectura && !clasif.verificado`: mismo patrón AlertController.
-- Botón **Guardar** visible en modo edición: registra encabezado en `clasificacion_tallas` y filas en `detalle_tallas`.
-
-### Muestra de Sabor — Formulario (`/muestra-sabor-form/:id`)
-Página única con scroll continuo (se eliminó el wizard de 3 pasos).
-
-Secciones apiladas (cards):
-1. **Encabezado** — fecha, turno, tipo (proceso / proxcos).
-2. **Panelistas** *(solo en modo edición)* — checkboxes; `togglePanelista(id, checked)` agrega/elimina calificaciones en todos los códigos de forma reactiva.
-3. **Códigos de Lote** (máx. 6) — por cada código:
-   - Input código (ej: `L-001`).
-   - Selector cliente → carga fincas del cliente.
-   - Selector finca → carga lagunas de la finca.
-   - Selector laguna.
-   - Sección inline **Calificaciones**: una fila por panelista (nombre + input 0–10).
-   - Fila de **Promedio** + badge de estado: Aprobado (≥9) / Revisar (≥7) / Rechazado (<7).
-   - Botón **Agregar Código** (deshabilitado si `codigos.length >= 6`).
-4. **Observaciones** — textarea.
-5. **Realizado por** — selector de usuario.
-6. Botón **Verificar** visible en `soloLectura && !muestra.verificado`: mismo patrón AlertController.
-7. Botón **Guardar** visible en modo edición: crea cabecera en `muestras_sabor` y un `DetalleSabor` por cada par (código × panelista).
-
-Interface interna:
-```typescript
-interface CodigoLote {
-  codigo: string;
-  idCliente: number; idFinca: number; idLaguna: number;
-  fincas: Finca[]; lagunas: Laguna[];
-  calificaciones: { idPanelista: string | number; nota: number }[];
-  promedio: number;
-}
-```
-
----
-
-### Tipos de Defecto — Admin
-- Lista de todos los tipos (activos e inactivos) con badge de estado
-- Crear nuevo tipo: nombre, descripción
-- Editar nombre y descripción
-- Activar / desactivar (si tiene registros asociados, solo se desactiva; no se elimina)
-- Solo los tipos activos aparecen en el formulario de calidad entero
-
----
-
-### Catálogos — Menú
-- Menú con acceso a: Clientes, Fincas, Lagunas, Usuarios
-- Cada sub-página tiene: lista + agregar + editar + eliminar con confirmación
-
----
-
-## 8. Rutas
-
-| Ruta | Página |
-|---|---|
-| `/dashboard` | Dashboard |
-| `/recepciones` | Recepciones — Lista |
-| `/recepciones/:id` | Recepciones — Detalle |
-| `/recepcion-form` | Formulario nueva recepción |
-| `/recepcion-form/:id` | Formulario editar recepción |
-| `/calidades` | Calidades — Lista |
-| `/calidad-entero-form` | Formulario nueva calidad entero |
-| `/calidad-entero-form/:id` | Formulario editar calidad entero |
-| `/clasificacion-tallas-form` | Formulario nueva clasificación |
-| `/clasificacion-tallas-form/:id` | Formulario editar clasificación |
-| `/muestra-sabor-form` | Formulario nueva muestra de sabor |
-| `/muestra-sabor-form/:id` | Formulario editar muestra de sabor |
-| `/catalogos` | Catálogos — Menú |
-| `/catalogos/clientes` | Gestión de clientes |
-| `/catalogos/fincas` | Gestión de fincas |
-| `/catalogos/lagunas` | Gestión de lagunas |
-| `/catalogos/usuarios` | Gestión de usuarios |
-| `/tipos-defecto` | Admin — Tipos de defecto |
-
-> **Modo lectura:** añadir `?modo=ver` al navegar a cualquier formulario activa `soloLectura = true` (inputs deshabilitados, botón Verificar visible si el registro está pendiente).
-
----
-
-## 9. Side Menu
-
-Opciones del menú lateral:
-
-| Ícono sugerido | Etiqueta | Ruta |
-|---|---|---|
-| `grid-outline` | Dashboard | `/dashboard` |
-| `boat-outline` | Recepciones | `/recepciones` |
-| `flask-outline` | Calidades | `/calidades` |
-| `list-outline` | Catálogos | `/catalogos` |
-| `settings-outline` | Admin — Tipos de defecto | `/tipos-defecto` |
-
----
-
-## 10. db.json — tablas y campos
-
-### clientes
-| Campo | Tipo |
-|---|---|
-| id | number |
-| nombre | string |
-| estado | activo / inactivo |
-
-### fincas
-| Campo | Tipo |
-|---|---|
-| id | number |
-| nombre | string |
-| idCliente | number (FK) |
-| estado | activo / inactivo |
-
-### lagunas
-| Campo | Tipo |
-|---|---|
-| id | number |
-| nombre | string |
-| idFinca | number (FK) |
-| estado | activo / inactivo |
-
-### usuarios
-| Campo | Tipo |
-|---|---|
-| id | number |
-| nombre | string |
-| rol | admin / inspector / verificador / panelista |
-| correo | string |
-| telefono | string |
-| estado | activo / inactivo |
-
-### tipos_defecto
-| Campo | Tipo |
-|---|---|
-| id | number |
-| nombre | string |
-| descripcion | string |
-| estado | activo / inactivo |
-
-Datos iniciales (20 tipos del formulario STB/ACC/R001):
-Mudado, Concha Suave, Flácido, Melanosis, Necrosis Leve, Necrosis Moderada, Arena, Quebrado, Pálido, Camarón Rojo, Deshidratado, Algas en Pleópodos, Algas en Pleuras, Cabeza Roja, Cabeza Naranja, Cabeza Caída, Cabeza Reventada, Branquias Oscuras, Branquias Sucias, Descabezado.
-
-### trazabilidad_recepcion
-| Campo | Tipo |
-|---|---|
-| id | number |
-| fecha | string (YYYY-MM-DD) |
-| turno | A / B |
-| idUsuarioRealiza | number (FK usuarios) |
-| idUsuarioVerifica | number (FK usuarios) |
-| observaciones | string |
-| correcciones | string |
-| estado | activo / inactivo |
-
-### detalle_bins
-| Campo | Tipo |
-|---|---|
-| id | number |
-| idRecepcion | number (FK trazabilidad_recepcion) |
-| numeroBin | string |
-| cantidadLibras | number |
-| idCliente | number (FK) |
-| idFinca | number (FK) |
-| idLaguna | number (FK) |
-| remisionSAG | string |
-| fechaCosecha | string |
-| horaCosecha | string |
-| fechaRecibido | string |
-| horaRecibido | string |
-| horaInicioProceso | string |
-
-### calidad_entero
-| Campo | Tipo |
-|---|---|
-| id | number |
-| fecha | string (YYYY-MM-DD) |
-| turno | A / B |
-| tipo | proceso / proxco |
-| idRecepcion | number (FK trazabilidad_recepcion) |
-| loteInterno | string (desnormalizado) |
-| idCliente | number (FK) |
-| idFinca | number (FK) |
-| idLaguna | number (FK) |
-| gramos | number |
-| observacion | string |
-| correccion | string |
-| supervisor | string |
-| idUsuarioRealiza | number (FK usuarios) |
-| verificado | boolean |
-| idUsuarioVerifica | number (FK usuarios) |
-
-### detalle_calidad
-| Campo | Tipo |
-|---|---|
-| id | number |
-| idCalidad | number (FK calidad_entero) |
-| idTipoDefecto | number (FK tipos_defecto) |
-| cantidad | number |
-| esNitido | boolean |
-
-### clasificacion_tallas
-| Campo | Tipo |
-|---|---|
-| id | number |
-| fecha | string (YYYY-MM-DD) |
-| turno | A / B |
-| tipo | proceso / proxco |
-| idRecepcion | number (FK trazabilidad_recepcion) |
-| loteInterno | string (desnormalizado) |
-| idCliente | number (FK) |
-| idFinca | number (FK) |
-| idLaguna | number (FK) |
-| pesoMuestra | number |
-| tallaDominante | string (auto-calculado) |
-| idUsuarioRealiza | number (FK) |
-| verificado | boolean |
-| idUsuarioVerifica | number (FK) |
-
-### detalle_tallas
-| Campo | Tipo |
-|---|---|
-| id | number |
-| idClasif | number (FK clasificacion_tallas) |
-| rangoTalla | string |
-| pesoGramos | number |
-| cantidad | number |
-| porcentaje | number |
-
-### muestras_sabor
-| Campo | Tipo |
-|---|---|
-| id | number |
-| fecha | string (YYYY-MM-DD) |
-| tipo | proceso / proxcos |
-| turno | A / B |
-| idUsuarioRealiza | number (FK usuarios) |
-| observaciones | string |
-| verificado | boolean |
-| idUsuarioVerifica | number (FK usuarios) |
-
-### detalle_sabor
-| Campo | Tipo |
-|---|---|
-| id | number |
-| idMuestra | number (FK muestras_sabor) |
-| codigo | string |
-| idCliente | number (FK) |
-| idFinca | number (FK) |
-| idLaguna | number (FK) |
-| idPanelista | number (FK usuarios) |
-| calificacion | number (0–10) |
-| totalRespuestas | number |
-
-### fotos
-| Campo | Tipo |
-|---|---|
-| id | number |
-| idRegistro | number |
-| tipoRegistro | recepcion / calidad / tallas / sabor |
-| pathLocal | string |
-| nombreArchivo | string |
-| latitud | number |
-| longitud | number |
-| fechaFoto | string (ISO) |
-
----
-
-## 11. Endpoints de la API
-
-Correr JSON Server:
-```bash
-json-server --watch db.json --port 3000
-```
-
-URL base: `http://localhost:3000`
-> En dispositivo físico usar la IP de la PC. Ejemplo: `http://192.168.1.100:3000`
-
-| Método | Endpoint | Descripción |
-|---|---|---|
-| GET | /clientes | Listar clientes |
-| GET | /fincas?idCliente=X | Fincas por cliente |
-| GET | /lagunas?idFinca=X | Lagunas por finca |
-| GET | /usuarios | Listar usuarios |
-| GET | /usuarios?rol=panelista | Panelistas activos |
-| GET | /tipos_defecto?estado=activo | Tipos de defecto activos |
-| POST | /tipos_defecto | Crear tipo de defecto |
-| PATCH | /tipos_defecto/:id | Editar / desactivar tipo |
-| GET | /trazabilidad_recepcion | Listar recepciones |
-| GET | /trazabilidad_recepcion/:id | Recepción por ID |
-| POST | /trazabilidad_recepcion | Nueva recepción |
-| PATCH | /trazabilidad_recepcion/:id | Editar recepción |
-| DELETE | /trazabilidad_recepcion/:id | Eliminar recepción |
-| GET | /detalle_bins?idRecepcion=X | Bins de una recepción |
-| POST | /detalle_bins | Agregar bin |
-| PATCH | /detalle_bins/:id | Editar bin |
-| DELETE | /detalle_bins/:id | Eliminar bin |
-| GET | /calidad_entero | Listar evaluaciones |
-| POST | /calidad_entero | Nueva evaluación |
-| PATCH | /calidad_entero/:id | Editar evaluación |
-| DELETE | /calidad_entero/:id | Eliminar evaluación |
-| GET | /detalle_calidad?idCalidad=X | Defectos de una evaluación |
-| POST | /detalle_calidad | Registrar defecto |
-| GET | /clasificacion_tallas | Listar clasificaciones |
-| POST | /clasificacion_tallas | Nueva clasificación |
-| PATCH | /clasificacion_tallas/:id | Editar clasificación |
-| GET | /detalle_tallas?idClasif=X | Tallas de una clasificación |
-| POST | /detalle_tallas | Agregar fila de talla |
-| GET | /muestras_sabor | Listar sesiones de cata |
-| POST | /muestras_sabor | Nueva sesión |
-| PATCH | /muestras_sabor/:id | Editar sesión |
-| GET | /detalle_sabor?idMuestra=X | Calificaciones de una sesión |
-| POST | /detalle_sabor | Registrar calificación |
-| GET | /fotos?idRegistro=X | Fotos de un registro |
-| POST | /fotos | Registrar foto |
-
----
-
-## 12. Plugins de Capacitor
-
-| Plugin | Para qué se usa en TrazApp |
-|---|---|
-| `@capacitor/geolocation` | Capturar latitud y longitud al registrar una recepción |
-| `@capacitor/camera` | Tomar foto del lote o seleccionar desde galería |
-| `@capacitor/filesystem` | Guardar la foto localmente en el dispositivo |
-
-Permisos necesarios en Android (`AndroidManifest.xml`):
-- `ACCESS_FINE_LOCATION`
-- `ACCESS_COARSE_LOCATION`
-- `CAMERA`
-- `READ_EXTERNAL_STORAGE`
-- `WRITE_EXTERNAL_STORAGE`
-
-
-## 13. Comandos útiles
-
-```bash
-# Iniciar JSON Server
-json-server --watch db.json --port 3000
-
-# Iniciar la app en el navegador
-ionic serve
-
-# Generar una página
-ionic generate page pages/nombre-pagina
-
-# Generar un servicio
-ionic generate service services/nombre-servicio
-
-# Sincronizar Capacitor
-npx cap sync
-
-# Abrir en Android Studio
-ionic cap open android
-```
-
----
-
-> **Nota:** Cuando pruebes en dispositivo físico, cambia `localhost` por la IP de tu PC
-> en `src/environments/environment.ts`. Ambos deben estar en la misma red WiFi.
-
----
-
-## 14. Patrones de código implementados
-
-### Flujo de verificación (aplica a los 3 tipos de calidad)
-
-```
-Lista → badge "Pendiente" + botón "Verificar" inline (stopPropagation)
-  ↓
-AlertController con radio de usuarios
-  ↓ Confirmar
-service.update(id, { verificado: true, idUsuarioVerifica })
-  ↓
-Badge cambia a "Verificado" en la lista
-```
-
-El botón Verificar también aparece dentro del formulario en modo `soloLectura && !record.verificado`.
-
-### Modo lectura en formularios
-
-```typescript
-this.soloLectura = this.route.snapshot.queryParamMap.get('modo') === 'ver';
-```
-
-- Todos los inputs y selects tienen `[disabled]="soloLectura"`.
-- El botón Guardar usa `*ngIf="!soloLectura"`.
-- El botón Verificar usa `*ngIf="soloLectura && !record.verificado"`.
-
-### Panelistas reactivos en muestra-sabor-form
-
-`togglePanelista(id, checked)` mantiene sincronizados los arreglos de calificaciones en todos los códigos de lote:
-- Al marcar: añade `{ idPanelista: id, nota: 0 }` a cada código si no existe.
-- Al desmarcar: elimina las calificaciones del panelista de todos los códigos y recalcula promedios.
-
-### Carga encadenada Cliente → Finca → Laguna
-
-```
-onCodigoClienteChange(c) → fincaSvc.getActivasByCliente(c.idCliente) → c.fincas
-onCodigoFincaChange(c)   → lagunaSvc.getActivasByFinca(c.idFinca)    → c.lagunas
-```
-
-### Badge de estado en muestra de sabor
-
-| Promedio | Estado | Color Ionic |
-|----------|--------|-------------|
-| ≥ 9 | Aprobado | `success` |
-| ≥ 7 | Revisar | `warning` |
-| < 7 | Rechazado | `danger` |
