@@ -1,0 +1,7 @@
+ion-content { --background: #F4FAFA; }
+ion-button[color="primary"][expand="block"] {
+  --background: linear-gradient(135deg, #00ADA8, #007A76);
+  --color: #ffffff;
+  --box-shadow: 0 4px 20px rgba(0,173,168,0.35);
+  font-weight: 700; height: 52px; margin: 12px 0 24px;
+}

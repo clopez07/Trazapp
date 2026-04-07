@@ -1,22 +1,49 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
+
+    <!-- ══ MENÚ LATERAL ══ -->
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>TrazApp</ion-list-header>
-          <ion-note>Control de Calidad — Camarón</ion-note>
 
+        <!-- Brand header -->
+        <div class="menu-brand">
+          <div class="brand-logo-wrap">
+            <img src="assets/logo-trazapp.png" alt="TrazApp logo" class="brand-logo-img" />
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">TrazApp</span>
+            <span class="brand-sub">Control de Calidad · Camarón</span>
+          </div>
+        </div>
+
+        <div class="menu-divider"></div>
+
+        <ion-list id="inbox-list">
           @for (p of appPages; track p; let i = $index) {
             <ion-menu-toggle auto-hide="false">
-              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-                <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-item routerDirection="root"
+                        [routerLink]="[p.url]"
+                        lines="none"
+                        detail="false"
+                        routerLinkActive="selected"
+                        class="menu-item">
+                <div class="menu-icon-wrap" slot="start">
+                  <ion-icon [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                </div>
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
           }
         </ion-list>
+
+        <!-- Footer del menú -->
+        <div class="menu-footer">
+          <span>v1.0.0 · UTH</span>
+        </div>
+
       </ion-content>
     </ion-menu>
+
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -7,59 +7,96 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="dashboard-content">
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Resumen del día</ion-card-subtitle>
-      <ion-card-title>{{ fechaHoy }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col class="ion-text-center">
-            <h2>{{ totalBins }}</h2>
-            <p>Recepciones</p>
-          </ion-col>
-          <ion-col class="ion-text-center">
-            <h2>{{ totalCalidades }}</h2>
-            <p>Evaluaciones</p>
-          </ion-col>
-          <ion-col class="ion-text-center">
-            <h2>{{ totalSabores }}</h2>
-            <p>Muestras Sabor</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+  <!-- ══ ENCABEZADO DE BIENVENIDA ══ -->
+  <div class="dash-hero animate-in">
+    <div class="dash-hero-text">
+      <p class="dash-greeting">Bienvenido a</p>
+      <h1 class="dash-title">TrazApp</h1>
+      <p class="dash-date">{{ fechaHoy }}</p>
+    </div>
+    <div class="dash-hero-icon">
+      <img src="assets/logo-trazapp.png" alt="TrazApp logo" class="dash-logo-img" />
+    </div>
+  </div>
 
-  <ion-list>
-    <ion-list-header>Accesos Rápidos</ion-list-header>
+  <!-- ══ STATS DEL DÍA ══ -->
+  <div class="stats-grid animate-in" style="animation-delay: 0.08s">
+    <div class="stat-tile">
+      <div class="stat-icon-wrap" style="--tile-color: #00C8A0">
+        <ion-icon name="boat-outline"></ion-icon>
+      </div>
+      <div class="stat-number">{{ totalBins }}</div>
+      <div class="stat-label">Recepciones</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-icon-wrap" style="--tile-color: #3B9EFF">
+        <ion-icon name="flask-outline"></ion-icon>
+      </div>
+      <div class="stat-number">{{ totalCalidades }}</div>
+      <div class="stat-label">Evaluaciones</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-icon-wrap" style="--tile-color: #7C6FCD">
+        <ion-icon name="water-outline"></ion-icon>
+      </div>
+      <div class="stat-number">{{ totalSabores }}</div>
+      <div class="stat-label">Muestras Sabor</div>
+    </div>
+  </div>
 
-    <ion-item button (click)="irA('/recepciones')">
-      <ion-icon name="boat-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>Recepciones</ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-item>
+  <!-- ══ ACCESOS RÁPIDOS ══ -->
+  <div class="section-header animate-in" style="animation-delay: 0.14s">
+    <span>Módulos</span>
+  </div>
 
-    <ion-item button (click)="irA('/calidades')">
-      <ion-icon name="flask-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>Calidades</ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-item>
+  <div class="nav-grid animate-in" style="animation-delay: 0.18s">
 
-    <ion-item button (click)="irA('/catalogos')">
-      <ion-icon name="list-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>Catálogos</ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-item>
+    <div class="nav-card" (click)="irA('/recepciones')">
+      <div class="nav-card-icon" style="--card-accent: #00C8A0; --card-bg: rgba(0,200,160,0.1)">
+        <ion-icon name="boat-outline"></ion-icon>
+      </div>
+      <div class="nav-card-body">
+        <h3>Recepciones</h3>
+        <p>Trazabilidad por lote y bins</p>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="nav-arrow"></ion-icon>
+    </div>
 
-    <ion-item button (click)="irA('/tipos-defecto')">
-      <ion-icon name="settings-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>Tipos de Defecto</ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-item>
-  </ion-list>
+    <div class="nav-card" (click)="irA('/calidades')">
+      <div class="nav-card-icon" style="--card-accent: #3B9EFF; --card-bg: rgba(59,158,255,0.1)">
+        <ion-icon name="flask-outline"></ion-icon>
+      </div>
+      <div class="nav-card-body">
+        <h3>Calidades</h3>
+        <p>Defectos, tallas y sabor</p>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="nav-arrow"></ion-icon>
+    </div>
+
+    <div class="nav-card" (click)="irA('/catalogos')">
+      <div class="nav-card-icon" style="--card-accent: #7C6FCD; --card-bg: rgba(124,111,205,0.1)">
+        <ion-icon name="list-outline"></ion-icon>
+      </div>
+      <div class="nav-card-body">
+        <h3>Catálogos</h3>
+        <p>Clientes, fincas y lagunas</p>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="nav-arrow"></ion-icon>
+    </div>
+
+    <div class="nav-card" (click)="irA('/tipos-defecto')">
+      <div class="nav-card-icon" style="--card-accent: #F59E0B; --card-bg: rgba(245,158,11,0.1)">
+        <ion-icon name="settings-outline"></ion-icon>
+      </div>
+      <div class="nav-card-body">
+        <h3>Tipos de Defecto</h3>
+        <p>Administración de defectos</p>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="nav-arrow"></ion-icon>
+    </div>
+
+  </div>
 
 </ion-content>

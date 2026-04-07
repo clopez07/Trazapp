@@ -1,18 +1,128 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
-
-// Ionic CSS Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the CSS variables found in Ionic's source files.
-// For a full list of available CSS properties that you can customize,
-// please refer to: https://ionicframework.com/docs/theming/css-variables
+// ═══════════════════════════════════════════════════════════════
+//  TrazApp — Design System "Jade & Amber"
+//  Paleta: Jade teal #00ADA8 + ámbar #D4860A sobre blanco tinted
+// ═══════════════════════════════════════════════════════════════
 
 :root {
-  --ion-color-primary: #1a6e3c;
-  --ion-color-primary-rgb: 26,110,60;
+  // ── Color primario: Jade teal ──────────────────────────────
+  --ion-color-primary: #00ADA8;
+  --ion-color-primary-rgb: 0, 173, 168;
   --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255,255,255;
-  --ion-color-primary-shade: #176135;
-  --ion-color-primary-tint: #317d50;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #009893;
+  --ion-color-primary-tint: #1ab5b1;
+
+  // ── Secundario: Ámbar oscuro ───────────────────────────────
+  --ion-color-secondary: #D4860A;
+  --ion-color-secondary-rgb: 212, 134, 10;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #ba7609;
+  --ion-color-secondary-tint: #d8921e;
+
+  // ── Terciario: Jade profundo ───────────────────────────────
+  --ion-color-tertiary: #007A76;
+  --ion-color-tertiary-rgb: 0, 122, 118;
+  --ion-color-tertiary-shade: #006b67;
+  --ion-color-tertiary-tint: #1a8784;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+
+  // ── Success / Warning / Danger ─────────────────────────────
+  --ion-color-success: #1A9E6A;
+  --ion-color-success-rgb: 26, 158, 106;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #178c5e;
+  --ion-color-success-tint: #31a878;
+
+  --ion-color-warning: #D4860A;
+  --ion-color-warning-rgb: 212, 134, 10;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #ba7609;
+  --ion-color-warning-tint: #d8921e;
+
+  --ion-color-danger: #C84040;
+  --ion-color-danger-rgb: 200, 64, 64;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #b03838;
+  --ion-color-danger-tint: #ce5353;
+
+  // ── Medium / Light / Dark ──────────────────────────────────
+  --ion-color-medium: #5A8080;
+  --ion-color-medium-rgb: 90, 128, 128;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #4e7070;
+  --ion-color-medium-tint: #6b8d8d;
+
+  --ion-color-light: #EEF7F7;
+  --ion-color-light-rgb: 238, 247, 247;
+  --ion-color-light-contrast: #0D2A2A;
+  --ion-color-light-contrast-rgb: 13, 42, 42;
+  --ion-color-light-shade: #d2dcdc;
+  --ion-color-light-tint: #f0f8f8;
+
+  --ion-color-dark: #0D2A2A;
+  --ion-color-dark-rgb: 13, 42, 42;
+  --ion-color-dark-contrast: #F4FAFA;
+  --ion-color-dark-contrast-rgb: 244, 250, 250;
+  --ion-color-dark-shade: #0b2525;
+  --ion-color-dark-tint: #1a3535;
+
+  // ── Fondo y superficies ────────────────────────────────────
+  --ion-background-color: #F4FAFA;
+  --ion-background-color-rgb: 244, 250, 250;
+
+  --ion-text-color: #0D2A2A;
+  --ion-text-color-rgb: 13, 42, 42;
+
+  --ion-card-background: #FFFFFF;
+  --ion-item-background: transparent;
+  --ion-item-border-color: rgba(0, 173, 168, 0.12);
+
+  --ion-toolbar-background: #FFFFFF;
+  --ion-toolbar-color: #0D2A2A;
+  --ion-toolbar-border-color: rgba(0, 173, 168, 0.12);
+
+  --ion-tab-bar-background: #FFFFFF;
+  --ion-tab-bar-border-color: rgba(0, 173, 168, 0.12);
+  --ion-tab-bar-color: #5A8080;
+  --ion-tab-bar-color-selected: #00ADA8;
+
+  --ion-border-color: rgba(0, 173, 168, 0.12);
+  --ion-placeholder-color: #7AABAB;
+  --ion-headings-font-weight: 700;
+
+  // ── Custom design tokens ───────────────────────────────────
+  --tz-font-display: 'Exo 2', sans-serif;
+  --tz-font-body: 'DM Sans', sans-serif;
+  --tz-font-mono: 'JetBrains Mono', monospace;
+
+  --tz-surface-1: #FFFFFF;
+  --tz-surface-2: #EEF7F7;
+  --tz-surface-3: #E4F2F2;
+
+  --tz-teal: #00ADA8;
+  --tz-teal-glow: rgba(0, 173, 168, 0.18);
+  --tz-teal-subtle: rgba(0, 173, 168, 0.07);
+
+  --tz-amber: #D4860A;
+  --tz-amber-glow: rgba(212, 134, 10, 0.14);
+
+  --tz-emerald: #1A9E6A;
+  --tz-emerald-glow: rgba(26, 158, 106, 0.14);
+
+  --tz-coral: #C84040;
+  --tz-coral-glow: rgba(200, 64, 64, 0.12);
+
+  --tz-radius-sm: 8px;
+  --tz-radius-md: 14px;
+  --tz-radius-lg: 20px;
+  --tz-radius-xl: 28px;
+
+  --tz-shadow-card: 0 2px 12px rgba(0, 80, 80, 0.07), 0 1px 3px rgba(0, 173, 168, 0.05);
+  --tz-shadow-glow: 0 0 20px rgba(0, 173, 168, 0.18);
 }

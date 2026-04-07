@@ -1,3 +1,181 @@
-ion-card {
+.rec-content {
+  --background: #F4FAFA;
+  --padding-bottom: 80px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 60px 20px;
+
+  ion-icon { font-size: 52px; color: #9ABCBC; }
+
+  p {
+    font-family: var(--tz-font-display);
+    font-size: 0.85rem;
+    color: #5A8080;
+    margin: 0;
+  }
+}
+
+.rec-card {
+  background: var(--tz-surface-1);
+  border: 1px solid rgba(0,173,168,0.1);
+  border-radius: var(--tz-radius-md);
+  margin: 10px 12px;
+  overflow: hidden;
+  box-shadow: var(--tz-shadow-card);
+  animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rec-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
   cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:active { background: rgba(0,173,168,0.04); }
+}
+
+.rec-lote-block { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+
+.rec-lote-code {
+  font-family: var(--tz-font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--tz-teal);
+  letter-spacing: 0.04em;
+}
+
+.rec-meta {
+  font-size: 0.78rem;
+  color: #5A8080;
+
+  strong { color: #0D2A2A; font-weight: 600; }
+}
+
+.rec-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+.bins-badge {
+  background: var(--tz-amber-glow);
+  color: #A06000;
+  border: 1px solid rgba(212,134,10,0.28);
+  border-radius: 20px;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.7rem;
+  padding: 3px 9px;
+}
+
+.expand-icon { font-size: 16px; color: #9ABCBC; }
+
+.rec-card-body {
+  padding: 0 16px 16px;
+  animation: fadeInUp 0.2s ease both;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 0.8rem;
+  color: #5A8080;
+
+  ion-icon { font-size: 15px; color: #7AABAB; margin-top: 1px; flex-shrink: 0; }
+  strong   { color: #0D2A2A; font-weight: 600; }
+}
+
+.rec-actions { display: flex; gap: 8px; margin: 12px 0; }
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--tz-radius-sm);
+  border: none;
+  cursor: pointer;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.15s ease;
+
+  ion-icon { font-size: 15px; }
+  &:active { transform: scale(0.96); }
+}
+
+.action-edit {
+  background: rgba(0,173,168,0.1);
+  color: #007A76;
+  border: 1px solid rgba(0,173,168,0.22);
+}
+
+.action-view {
+  background: var(--tz-emerald-glow);
+  color: #0A6640;
+  border: 1px solid rgba(26,158,106,0.28);
+}
+
+.bins-section { margin-top: 4px; }
+
+.bins-header {
+  font-family: var(--tz-font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #7AABAB;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 8px 0 6px;
+}
+
+.bins-empty {
+  font-size: 0.78rem;
+  color: #7AABAB;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.bin-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(0,173,168,0.07);
+
+  &:last-child { border-bottom: none; }
+}
+
+.bin-status-bar { width: 3px; height: 36px; border-radius: 4px; flex-shrink: 0; }
+.bin-procesado .bin-status-bar { background: var(--tz-emerald); box-shadow: 0 0 6px rgba(26,158,106,0.3); }
+.bin-pendiente .bin-status-bar { background: var(--tz-amber);   box-shadow: 0 0 6px rgba(212,134,10,0.25); }
+
+.bin-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+
+.bin-numero { font-family: var(--tz-font-display); font-weight: 600; font-size: 0.85rem; color: #0D2A2A; }
+.bin-libras { font-size: 0.75rem; color: #5A8080; font-family: var(--tz-font-mono); }
+.bin-hora   { font-size: 0.7rem; color: #1A9E6A; font-family: var(--tz-font-mono); opacity: 0.85; }
+
+.procesar-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--tz-amber-glow);
+  color: #A06000;
+  border: 1px solid rgba(212,134,10,0.32);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  transition: all 0.15s ease;
+
+  ion-icon { font-size: 15px; }
+  &:active { transform: scale(0.95); background: rgba(212,134,10,0.2); }
 }

@@ -25,13 +25,6 @@
     <ion-searchbar [(ngModel)]="busqueda" placeholder="Buscar por lote, fecha, tipo..." debounce="300"></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar *ngIf="tipoActivo">
-    <ion-segment [(ngModel)]="filtroTurno">
-      <ion-segment-button value="">Todos</ion-segment-button>
-      <ion-segment-button value="A">Turno A</ion-segment-button>
-      <ion-segment-button value="B">Turno B</ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-  <ion-toolbar *ngIf="tipoActivo">
     <ion-segment [(ngModel)]="filtroEstado">
       <ion-segment-button value="">Todos</ion-segment-button>
       <ion-segment-button value="pendiente">Pendiente</ion-segment-button>

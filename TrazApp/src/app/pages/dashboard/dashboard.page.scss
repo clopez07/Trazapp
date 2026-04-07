@@ -1,5 +1,190 @@
-ion-card h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--ion-color-primary);
+.dashboard-content {
+  --background: #F4FAFA;
+  --padding-bottom: 32px;
 }
+
+// ── Hero ───────────────────────────────────────────────────────
+.dash-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px 16px;
+  background: linear-gradient(135deg, #00ADA8 0%, #007A76 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+}
+
+.dash-greeting {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--tz-font-display);
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+
+.dash-title {
+  font-family: var(--tz-font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.01em;
+
+  span { color: rgba(255, 230, 160, 0.95); }
+}
+
+.dash-date {
+  font-family: var(--tz-font-mono);
+  font-size: 0.72rem;
+  color: rgba(255, 230, 160, 0.85);
+  margin: 6px 0 0;
+  letter-spacing: 0.05em;
+}
+
+.dash-hero-icon {
+  width: 68px; height: 68px;
+  background: #ffffff;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.dash-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+// ── Stats ──────────────────────────────────────────────────────
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px 14px 8px;
+}
+
+.stat-tile {
+  background: var(--tz-surface-1);
+  border: 1px solid rgba(0,173,168,0.1);
+  border-radius: var(--tz-radius-md);
+  padding: 14px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--tz-shadow-card);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--tile-color, var(--tz-teal)) 0%, transparent 100%);
+    opacity: 0.8;
+  }
+}
+
+.stat-icon-wrap {
+  width: 32px; height: 32px;
+  background: color-mix(in srgb, var(--tile-color) 12%, transparent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon { font-size: 17px; color: var(--tile-color); }
+}
+
+// ── Section header ─────────────────────────────────────────────
+.section-header {
+  padding: 16px 18px 8px;
+
+  span {
+    font-family: var(--tz-font-display);
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: #5A8080;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+}
+
+// ── Nav grid ───────────────────────────────────────────────────
+.nav-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 14px 16px;
+}
+
+.nav-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--tz-surface-1);
+  border: 1px solid rgba(0,173,168,0.08);
+  border-radius: var(--tz-radius-md);
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--tz-shadow-card);
+
+  &:active {
+    transform: scale(0.98);
+    background: var(--tz-surface-2);
+    border-color: rgba(0,173,168,0.22);
+  }
+}
+
+.nav-card-icon {
+  width: 44px; height: 44px;
+  background: var(--card-bg);
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--card-accent) 20%, transparent);
+
+  ion-icon { font-size: 22px; color: var(--card-accent); }
+}
+
+.nav-card-body {
+  flex: 1;
+
+  h3 {
+    font-family: var(--tz-font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #0D2A2A;
+    margin: 0 0 2px;
+  }
+
+  p {
+    font-size: 0.75rem;
+    color: #5A8080;
+    margin: 0;
+  }
+}
+
+.nav-arrow { font-size: 16px; color: #9ABCBC; flex-shrink: 0; }

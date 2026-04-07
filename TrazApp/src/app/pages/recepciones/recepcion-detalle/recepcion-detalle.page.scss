@@ -1,0 +1,28 @@
+ion-content { --background: #F4FAFA; }
+
+ion-card-title {
+  font-family: var(--tz-font-mono) !important;
+  color: var(--tz-teal) !important;
+  font-size: 1.3rem !important;
+  letter-spacing: 0.04em;
+}
+
+ion-item p {
+  font-family: var(--tz-font-body);
+  line-height: 1.6;
+
+  strong {
+    font-family: var(--tz-font-display);
+    color: #0D2A2A !important;
+  }
+}
+
+ion-button[color="danger"][expand="block"] {
+  --background: rgba(200,64,64,0.08);
+  --color: #8C2020;
+  --border-color: rgba(200,64,64,0.25);
+  border: 1px solid rgba(200,64,64,0.25);
+  --box-shadow: none;
+  font-weight: 600;
+  margin: 8px 0 24px;
+}

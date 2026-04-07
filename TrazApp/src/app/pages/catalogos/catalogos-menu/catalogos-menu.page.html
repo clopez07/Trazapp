@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -7,12 +7,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list>
-    <ion-item button *ngFor="let o of opciones" (click)="irA(o.ruta)">
-      <ion-icon [name]="o.icon" slot="start" color="primary"></ion-icon>
-      <ion-label>{{ o.titulo }}</ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-item>
-  </ion-list>
+<ion-content class="cat-content">
+
+  <div class="cat-grid">
+    <div class="cat-card" *ngFor="let o of opciones" (click)="irA(o.ruta)">
+      <div class="cat-icon-wrap">
+        <ion-icon [name]="o.icon"></ion-icon>
+      </div>
+      <span class="cat-label">{{ o.titulo }}</span>
+      <ion-icon name="chevron-forward-outline" class="cat-arrow"></ion-icon>
+    </div>
+  </div>
+
 </ion-content>

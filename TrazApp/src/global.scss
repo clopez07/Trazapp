@@ -1,14 +1,3 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -18,20 +7,377 @@
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+// ═══════════════════════════════════════════════════════════════
+//  TrazApp — Global Design System "Jade & Amber"
+// ═══════════════════════════════════════════════════════════════
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+* {
+  font-family: var(--tz-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, ion-card-title, ion-list-header, .display-font {
+  font-family: var(--tz-font-display);
+}
+
+ion-title {
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.mono { font-family: var(--tz-font-mono); }
+
+// ── Fondo global ───────────────────────────────────────────────
+ion-content {
+  --background: #F4FAFA;
+}
+
+ion-app {
+  background: #EEF7F7;
+}
+
+// ── Toolbar / Header ───────────────────────────────────────────
+ion-header {
+  &::after { display: none; }
+  box-shadow: 0 1px 8px rgba(0, 80, 80, 0.08);
+}
+
+ion-toolbar {
+  --background: #FFFFFF;
+  --border-color: rgba(0, 173, 168, 0.12);
+  --color: #0D2A2A;
+  --padding-start: 4px;
+  --padding-end: 4px;
+
+  &[color="primary"] {
+    --background: linear-gradient(135deg, #00ADA8 0%, #007A76 100%);
+    --color: #ffffff;
+    border-bottom: none;
+  }
+}
+
+ion-back-button  { --color: var(--tz-teal); }
+ion-menu-button  { --color: var(--tz-teal); }
+
+// ── Cards ──────────────────────────────────────────────────────
+ion-card {
+  --background: var(--tz-surface-1);
+  background: var(--tz-surface-1);
+  border-radius: var(--tz-radius-md) !important;
+  box-shadow: var(--tz-shadow-card);
+  border: 1px solid rgba(0, 173, 168, 0.1);
+  margin: 10px 12px;
+  overflow: hidden;
+
+  &[color="light"] {
+    --background: var(--tz-surface-2);
+    background: var(--tz-surface-2);
+    border-color: rgba(0, 173, 168, 0.08);
+  }
+}
+
+ion-card-header  { padding-bottom: 6px; }
+
+ion-card-subtitle {
+  color: var(--tz-teal) !important;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+ion-card-title {
+  color: #0D2A2A !important;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+// ── Items / Lists ──────────────────────────────────────────────
+ion-item {
+  --background: transparent;
+  --border-color: rgba(0, 173, 168, 0.1);
+  --color: #0D2A2A;
+  --inner-padding-end: 12px;
+  --highlight-color-focused: var(--tz-teal);
+  --highlight-color-valid: var(--tz-teal);
+
+  &.item-interactive.ion-valid {
+    --highlight-background: var(--tz-teal);
+  }
+}
+
+ion-label {
+  h2, h3 {
+    color: #0D2A2A !important;
+    font-family: var(--tz-font-display);
+    font-weight: 600;
+  }
+  p {
+    color: #5A8080 !important;
+    font-size: 0.82rem;
+  }
+}
+
+ion-list {
+  background: transparent !important;
+  --background: transparent;
+}
+
+ion-list-header {
+  --background: transparent;
+  --color: var(--tz-teal);
+  font-family: var(--tz-font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-top: 12px;
+}
+
+// ── Inputs / Selects / Textareas ───────────────────────────────
+ion-input, ion-textarea, ion-select {
+  --color: #0D2A2A;
+  --placeholder-color: #7AABAB;
+  --background: rgba(0, 173, 168, 0.04);
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --border-radius: var(--tz-radius-sm);
+}
+
+ion-input::part(native),
+ion-textarea::part(native) {
+  color: #0D2A2A;
+}
+
+// ── Modo previsualización / soloLectura ───────────────────────
+// Ionic aplica opacity:0.3 a elementos deshabilitados — lo
+// sobreescribimos para que el texto sea legible en modo lectura.
+ion-input[disabled],
+ion-textarea[disabled],
+ion-select[disabled] {
+  opacity: 1 !important;
+  --background: rgba(0, 80, 80, 0.04);
+  --color: #1A3A3A;
+}
+
+ion-input[disabled]::part(native),
+ion-textarea[disabled]::part(native) {
+  opacity: 1 !important;
+  color: #1A3A3A !important;
+  -webkit-text-fill-color: #1A3A3A !important;
+}
+
+ion-select[disabled]::part(text),
+ion-select[disabled]::part(placeholder) {
+  opacity: 1 !important;
+  color: #1A3A3A !important;
+}
+
+.item-interactive-disabled {
+  opacity: 1 !important;
+
+  ion-label {
+    opacity: 1 !important;
+    color: #1A3A3A !important;
+  }
+}
+
+ion-segment[disabled] {
+  opacity: 1 !important;
+}
+
+ion-segment-button.segment-button-disabled {
+  opacity: 1 !important;
+  --color: #1A3A3A;
+}
+
+// ── Buttons ────────────────────────────────────────────────────
+ion-button {
+  --border-radius: var(--tz-radius-sm);
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-size: 0.9rem;
+
+  &[expand="block"] {
+    --border-radius: var(--tz-radius-md);
+    margin-top: 8px;
+    height: 48px;
+    font-size: 1rem;
+  }
+}
+
+ion-fab-button {
+  --background: var(--tz-teal);
+  --color: #ffffff;
+  --box-shadow: 0 4px 20px rgba(0, 173, 168, 0.4);
+
+  &:hover {
+    --box-shadow: 0 6px 28px rgba(0, 173, 168, 0.55);
+  }
+}
+
+// ── Badges / Chips ─────────────────────────────────────────────
+ion-badge {
+  border-radius: 6px;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  letter-spacing: 0.04em;
+}
+
+ion-chip {
+  --background: rgba(0, 173, 168, 0.1);
+  --color: var(--tz-teal);
+  border: 1px solid rgba(0, 173, 168, 0.22);
+  border-radius: 20px;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+// ── Segment ────────────────────────────────────────────────────
+ion-segment {
+  --background: rgba(0, 173, 168, 0.07);
+  border-radius: var(--tz-radius-sm);
+  padding: 3px;
+}
+
+ion-segment-button {
+  --background: transparent;
+  --background-checked: var(--tz-teal);
+  --color: #5A8080;
+  --color-checked: #ffffff;
+  --border-radius: 6px;
+  --indicator-height: 0;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  min-height: 34px;
+  text-transform: none;
+}
+
+// ── Searchbar ──────────────────────────────────────────────────
+ion-searchbar {
+  --background: var(--tz-surface-2);
+  --color: #0D2A2A;
+  --placeholder-color: #7AABAB;
+  --border-radius: var(--tz-radius-sm);
+  --box-shadow: none;
+  --icon-color: var(--tz-teal);
+  --clear-button-color: #5A8080;
+  padding: 6px 12px !important;
+}
+
+ion-note {
+  color: #5A8080;
+  font-size: 0.82rem;
+}
+
+ion-menu {
+  --background: #FFFFFF;
+  --width: 280px;
+}
+
+ion-refresher { --color: var(--tz-teal); }
+
+// ═══════════════════════════════════════════════════════════════
+//  Animaciones
+// ═══════════════════════════════════════════════════════════════
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-in   { animation: fadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade { animation: fadeIn 0.3s ease both; }
+
+@for $i from 1 through 12 {
+  ion-card:nth-child(#{$i}),
+  ion-item:nth-child(#{$i}) {
+    animation: fadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) #{($i - 1) * 0.05}s both;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  Utilidades
+// ═══════════════════════════════════════════════════════════════
+
+.lote-code {
+  font-family: var(--tz-font-mono);
+  color: var(--tz-teal);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.estado-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+
+  &.pendiente  { background: var(--tz-amber-glow);   color: #A06000;  border: 1px solid rgba(212,134,10,0.3); }
+  &.procesado  { background: var(--tz-emerald-glow); color: #0A6640;  border: 1px solid rgba(26,158,106,0.3); }
+  &.verificado { background: var(--tz-emerald-glow); color: #0A6640;  border: 1px solid rgba(26,158,106,0.3); }
+  &.declinado  { background: var(--tz-coral-glow);   color: #8C2020;  border: 1px solid rgba(200,64,64,0.3); }
+}
+
+.glass-card {
+  background: rgba(238, 247, 247, 0.88) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 173, 168, 0.15) !important;
+  border-radius: var(--tz-radius-md) !important;
+}
+
+.teal-divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--tz-teal) 0%, transparent 100%);
+  opacity: 0.2;
+  margin: 8px 0;
+}
+
+.stat-number {
+  font-family: var(--tz-font-display);
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+  background: linear-gradient(135deg, #0D2A2A 0%, var(--tz-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-family: var(--tz-font-display);
+  font-weight: 500;
+  font-size: 0.72rem;
+  color: #5A8080;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}

@@ -1,1 +1,53 @@
-ion-card { cursor: pointer; }
+ion-content { --background: #F4FAFA; }
+
+ion-list ion-item[button] {
+  --background: var(--tz-surface-1);
+  --border-color: rgba(0,173,168,0.1);
+  --border-radius: var(--tz-radius-md);
+  margin-bottom: 6px;
+  border-radius: var(--tz-radius-md) !important;
+  border: 1px solid rgba(0,173,168,0.08);
+  transition: all 0.2s ease;
+
+  &:active { --background: var(--tz-surface-2); }
+}
+
+ion-item-sliding {
+  margin: 2px 0;
+  border-bottom: 1px solid rgba(0,173,168,0.06);
+}
+
+ion-button[color="success"] {
+  --background: var(--tz-emerald-glow);
+  --color: #0A6640;
+  --border-color: rgba(26,158,106,0.28);
+  --box-shadow: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+ion-button[fill="clear"] ion-icon[name="add-circle-outline"] { color: var(--tz-teal); }
+
+ion-badge[color="warning"] {
+  background: var(--tz-amber-glow) !important;
+  color: #A06000 !important;
+  border: 1px solid rgba(212,134,10,0.28);
+}
+
+ion-badge[color="success"] {
+  background: var(--tz-emerald-glow) !important;
+  color: #0A6640 !important;
+  border: 1px solid rgba(26,158,106,0.28);
+}
+
+ion-badge[color="danger"] {
+  background: var(--tz-coral-glow) !important;
+  color: #8C2020 !important;
+  border: 1px solid rgba(200,64,64,0.28);
+}
+
+ion-item[lines="none"] ion-label[color="medium"] {
+  color: #7AABAB !important;
+  font-style: italic;
+  font-size: 0.85rem;
+}
