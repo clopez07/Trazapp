@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { AlertController, IonItemSliding, IonList, ToastController } from '@ionic/angular';
 import { TipoDefectoService } from 'src/app/services/tipo-defecto.service';
 import { CalidadEnteroService } from 'src/app/services/calidad-entero.service';
 import { TipoDefecto } from 'src/app/models/tipo-defecto.model';
+import { SlidingService } from 'src/app/services/sliding.service';
 
 @Component({
   selector: 'app-tipos-defecto',
@@ -10,23 +11,28 @@ import { TipoDefecto } from 'src/app/models/tipo-defecto.model';
   styleUrls: ['./tipos-defecto.page.scss'],
   standalone: false,
 })
-export class TiposDefectoPage implements OnInit {
+export class TiposDefectoPage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(IonList) list!: IonList;
   tipos: TipoDefecto[] = [];
 
   constructor(
     private svc: TipoDefectoService,
     private calidadSvc: CalidadEnteroService,
     private alert: AlertController,
-    private toast: ToastController
+    private toast: ToastController,
+    private slidingService: SlidingService
   ) {}
 
   ngOnInit() { this.cargar(); }
+  ngAfterViewInit() { this.slidingService.registerList(this.list); }
+  ngOnDestroy() { this.slidingService.unregisterList(this.list); }
 
   cargar(event?: any) {
     this.svc.getAll().subscribe(d => { this.tipos = d; event?.target?.complete(); });
   }
 
-  async abrirForm(tipo?: TipoDefecto) {
+  async abrirForm(tipo?: TipoDefecto, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const esEditar = !!tipo;
     const a = await this.alert.create({
       header: esEditar ? 'Editar Tipo de Defecto' : 'Nuevo Tipo de Defecto',
@@ -53,7 +59,8 @@ export class TiposDefectoPage implements OnInit {
     await a.present();
   }
 
-  async eliminar(t: TipoDefecto) {
+  async eliminar(t: TipoDefecto, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     // Verificar si tiene registros asociados antes de eliminar
     this.calidadSvc.getDetalleByTipo(t.id!).subscribe(async (detalles) => {
       if (detalles.length > 0) {
@@ -85,7 +92,8 @@ export class TiposDefectoPage implements OnInit {
     });
   }
 
-  async toggleEstado(t: TipoDefecto) {
+  async toggleEstado(t: TipoDefecto, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     // Si tiene registros asociados, solo se desactiva (no se elimina)
     const nuevoEstado = t.estado === 'activo' ? 'inactivo' : 'activo';
     this.svc.update(t.id!, { estado: nuevoEstado }).subscribe(async () => {

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
-import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { AlertController, IonItemSliding, IonList, NavController, ToastController } from '@ionic/angular';
+import { SlidingService } from 'src/app/services/sliding.service';
 import { CalidadEnteroService } from 'src/app/services/calidad-entero.service';
 import { ClasificacionTallasService } from 'src/app/services/clasificacion-tallas.service';
 import { MuestraSaborService } from 'src/app/services/muestra-sabor.service';
@@ -17,7 +19,9 @@ import { Usuario } from 'src/app/models/usuario.model';
   styleUrls: ['./calidades-lista.page.scss'],
   standalone: false,
 })
-export class CalidadesListaPage implements OnInit, ViewWillEnter {
+export class CalidadesListaPage implements OnInit, AfterViewInit, OnDestroy, ViewWillEnter {
+  @ViewChildren(IonList) lists!: QueryList<IonList>;
+  private listsSub!: Subscription;
   tipoActivo: 'entero' | 'tallas' | 'sabor' | null = null;
 
   calidades: CalidadEntero[] = [];
@@ -81,8 +85,21 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     private usuarioSvc: UsuarioService,
     public nav: NavController,
     private alert: AlertController,
-    private toast: ToastController
+    private toast: ToastController,
+    private slidingService: SlidingService
   ) {}
+
+  ngAfterViewInit() {
+    this.listsSub = this.lists.changes.subscribe((lists: QueryList<IonList>) => {
+      lists.forEach(l => this.slidingService.registerList(l));
+    });
+    this.lists.forEach(l => this.slidingService.registerList(l));
+  }
+
+  ngOnDestroy() {
+    this.listsSub?.unsubscribe();
+    this.lists?.forEach(l => this.slidingService.unregisterList(l));
+  }
 
   ngOnInit() {
     this.usuarioSvc.getAll().subscribe(d => this.usuarios = d);
@@ -147,7 +164,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     return 'warning'; // pendiente
   }
 
-  async validar(calidad: CalidadEntero) {
+  async validar(calidad: CalidadEntero, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const inputs = this.usuarios.map(u => ({ type: 'radio' as const, label: u.nombre, value: u.id }));
     const a = await this.alert.create({
       header: 'Validar Evaluación',
@@ -172,7 +190,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async declinar(calidad: CalidadEntero) {
+  async declinar(calidad: CalidadEntero, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const a = await this.alert.create({
       header: 'Declinar Evaluación',
       message: '¿Seguro que deseas declinar esta evaluación?',
@@ -192,7 +211,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async validarTallas(clasif: ClasificacionTallas) {
+  async validarTallas(clasif: ClasificacionTallas, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const inputs = this.usuarios.map(u => ({ type: 'radio' as const, label: u.nombre, value: u.id }));
     const a = await this.alert.create({
       header: 'Validar Clasificación',
@@ -217,7 +237,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async declinarTallas(clasif: ClasificacionTallas) {
+  async declinarTallas(clasif: ClasificacionTallas, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const a = await this.alert.create({
       header: 'Declinar Clasificación',
       message: '¿Seguro que deseas declinar esta clasificación?',
@@ -237,7 +258,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async validarSabor(sabor: MuestraSabor) {
+  async validarSabor(sabor: MuestraSabor, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const inputs = this.usuarios.map(u => ({ type: 'radio' as const, label: u.nombre, value: u.id }));
     const a = await this.alert.create({
       header: 'Validar Muestra Sabor',
@@ -262,7 +284,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async declinarSabor(sabor: MuestraSabor) {
+  async declinarSabor(sabor: MuestraSabor, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const a = await this.alert.create({
       header: 'Declinar Muestra',
       message: '¿Seguro que deseas declinar esta muestra?',
@@ -287,7 +310,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     return this.usuarios.find(u => String(u.id) === String(id))?.nombre || '';
   }
 
-  async eliminar(calidad: CalidadEntero) {
+  async eliminar(calidad: CalidadEntero, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const a = await this.alert.create({
       header: 'Eliminar evaluación',
       message: '¿Seguro que deseas eliminar esta evaluación? Esta acción no se puede deshacer.',
@@ -307,7 +331,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async eliminarTallas(clasif: ClasificacionTallas) {
+  async eliminarTallas(clasif: ClasificacionTallas, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const a = await this.alert.create({
       header: 'Eliminar clasificación',
       message: '¿Seguro que deseas eliminar esta clasificación? Esta acción no se puede deshacer.',
@@ -327,7 +352,8 @@ export class CalidadesListaPage implements OnInit, ViewWillEnter {
     await a.present();
   }
 
-  async eliminarSabor(sabor: MuestraSabor) {
+  async eliminarSabor(sabor: MuestraSabor, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const a = await this.alert.create({
       header: 'Eliminar muestra',
       message: '¿Seguro que deseas eliminar esta muestra de sabor? Esta acción no se puede deshacer.',

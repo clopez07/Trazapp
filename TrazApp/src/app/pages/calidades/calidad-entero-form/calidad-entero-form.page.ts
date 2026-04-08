@@ -223,8 +223,38 @@ export class CalidadEnteroFormPage implements OnInit {
   abrirFoto(path: string) { this.fotoAmpliada = path; }
   cerrarFoto() { this.fotoAmpliada = null; }
 
-  sumar(fila: FilaDefecto) { fila.cantidad++; }
-  restar(fila: FilaDefecto) { if (fila.cantidad > 0) fila.cantidad--; }
+  // ── Slider ─────────────────────────────────────────────────────
+  readonly SLIDER_MAX = 20;
+  private dragFila: FilaDefecto | null = null;
+
+  sliderStart(event: PointerEvent, fila: FilaDefecto) {
+    if (this.soloLectura) return;
+    this.dragFila = fila;
+    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+    this.applySlider(event);
+  }
+
+  sliderMove(event: PointerEvent, fila: FilaDefecto) {
+    if (this.dragFila !== fila) return;
+    this.applySlider(event);
+  }
+
+  sliderEnd() { this.dragFila = null; }
+
+  private applySlider(event: PointerEvent) {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    if (this.dragFila) this.dragFila.cantidad = Math.round(ratio * this.SLIDER_MAX);
+  }
+
+  sliderPct(fila: FilaDefecto): number {
+    return Math.min(100, ((fila.cantidad || 0) / this.SLIDER_MAX) * 100);
+  }
+
+  cambiarCantidad(fila: FilaDefecto, delta: number) {
+    if (this.soloLectura) return;
+    fila.cantidad = Math.max(0, (fila.cantidad || 0) + delta);
+  }
 
   async verificar() {
     const inputs = this.usuarios.map(u => ({

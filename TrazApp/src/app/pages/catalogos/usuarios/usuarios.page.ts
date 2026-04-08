@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { AlertController, IonItemSliding, IonList, ModalController, ToastController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
+import { SlidingService } from 'src/app/services/sliding.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -10,7 +11,8 @@ import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
   styleUrls: ['./usuarios.page.scss'],
   standalone: false,
 })
-export class UsuariosPage implements OnInit {
+export class UsuariosPage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(IonList) list!: IonList;
   usuarios: Usuario[] = [];
   busqueda = '';
 
@@ -29,16 +31,20 @@ export class UsuariosPage implements OnInit {
     private svc: UsuarioService,
     private modal: ModalController,
     private alert: AlertController,
-    private toast: ToastController
+    private toast: ToastController,
+    private slidingService: SlidingService
   ) {}
 
   ngOnInit() { this.cargar(); }
+  ngAfterViewInit() { this.slidingService.registerList(this.list); }
+  ngOnDestroy() { this.slidingService.unregisterList(this.list); }
 
   cargar(event?: any) {
     this.svc.getAll().subscribe(d => { this.usuarios = d; event?.target?.complete(); });
   }
 
-  async abrirForm(usuario?: Usuario) {
+  async abrirForm(usuario?: Usuario, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const m = await this.modal.create({
       component: UsuarioFormComponent,
       componentProps: { usuario },
@@ -54,11 +60,13 @@ export class UsuariosPage implements OnInit {
     }
   }
 
-  async toggleEstado(u: Usuario) {
+  async toggleEstado(u: Usuario, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     this.svc.update(u.id!, { estado: u.estado === 'activo' ? 'inactivo' : 'activo' }).subscribe(() => this.cargar());
   }
 
-  async eliminar(u: Usuario) {
+  async eliminar(u: Usuario, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     const a = await this.alert.create({
       header: 'Confirmar',
       message: `¿Eliminar a "${u.nombre}"?`,

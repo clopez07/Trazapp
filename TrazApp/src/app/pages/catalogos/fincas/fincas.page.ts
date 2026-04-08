@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { AlertController, IonItemSliding, IonList, ModalController, ToastController } from '@ionic/angular';
 import { FincaService } from 'src/app/services/finca.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Finca } from 'src/app/models/finca.model';
 import { Cliente } from 'src/app/models/cliente.model';
 import { FincaFormComponent } from './finca-form/finca-form.component';
+import { SlidingService } from 'src/app/services/sliding.service';
 
 @Component({
   selector: 'app-fincas',
@@ -12,7 +13,8 @@ import { FincaFormComponent } from './finca-form/finca-form.component';
   styleUrls: ['./fincas.page.scss'],
   standalone: false,
 })
-export class FincasPage implements OnInit {
+export class FincasPage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(IonList) list!: IonList;
   fincas: Finca[] = [];
   clientes: Cliente[] = [];
   busqueda = '';
@@ -32,13 +34,16 @@ export class FincasPage implements OnInit {
     private clienteSvc: ClienteService,
     private modal: ModalController,
     private alert: AlertController,
-    private toast: ToastController
+    private toast: ToastController,
+    private slidingService: SlidingService
   ) {}
 
   ngOnInit() {
     this.clienteSvc.getAll().subscribe(d => this.clientes = d);
     this.cargar();
   }
+  ngAfterViewInit() { this.slidingService.registerList(this.list); }
+  ngOnDestroy() { this.slidingService.unregisterList(this.list); }
 
   cargar(event?: any) {
     this.svc.getAll().subscribe(d => { this.fincas = d; event?.target?.complete(); });
@@ -48,7 +53,8 @@ export class FincasPage implements OnInit {
     return this.clientes.find(c => String(c.id) === String(id))?.nombre || '';
   }
 
-  async abrirForm(finca?: Finca) {
+  async abrirForm(finca?: Finca, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const m = await this.modal.create({
       component: FincaFormComponent,
       componentProps: { finca },
@@ -64,11 +70,13 @@ export class FincasPage implements OnInit {
     }
   }
 
-  async toggleEstado(f: Finca) {
+  async toggleEstado(f: Finca, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     this.svc.update(f.id!, { estado: f.estado === 'activo' ? 'inactivo' : 'activo' }).subscribe(() => this.cargar());
   }
 
-  async eliminar(f: Finca) {
+  async eliminar(f: Finca, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     const a = await this.alert.create({
       header: 'Confirmar',
       message: `¿Eliminar "${f.nombre}"?`,

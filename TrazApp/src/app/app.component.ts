@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { SlidingService } from './services/sliding.service';
 
 @Component({
   selector: 'app-root',
@@ -15,5 +16,13 @@ export class AppComponent {
     { title: 'Tipos de Defecto', url: '/tipos-defecto', icon: 'settings' },
   ];
 
-  constructor() {}
+  constructor(private slidingService: SlidingService) {}
+
+  @HostListener('click', ['$event'])
+  onGlobalClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('ion-item-option')) {
+      this.slidingService.closeAll();
+    }
+  }
 }

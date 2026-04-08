@@ -73,18 +73,32 @@
     <ion-card-header><ion-card-subtitle>Conteo de Defectos</ion-card-subtitle></ion-card-header>
     <ion-card-content>
 
-      <ion-item *ngFor="let fila of filasDefectoSolo">
-        <ion-label>{{ fila.tipo.nombre }}</ion-label>
-        <ion-input
-          type="number"
-          min="0"
-          inputmode="numeric"
-          [(ngModel)]="fila.cantidad"
-          [disabled]="soloLectura"
-          slot="end"
-          style="max-width: 90px; text-align: right;">
-        </ion-input>
-      </ion-item>
+      <div class="gramaje-rows">
+        <div class="gramaje-row" [class.activo]="fila.cantidad > 0"
+             *ngFor="let fila of filasDefectoSolo">
+
+          <span class="gramaje-label">{{ fila.tipo.nombre }}</span>
+
+          <button class="stepper-btn"
+                  (click)="cambiarCantidad(fila, -1)"
+                  [disabled]="soloLectura">−</button>
+
+          <div class="slider-track"
+               (pointerdown)="sliderStart($event, fila)"
+               (pointermove)="sliderMove($event, fila)"
+               (pointerup)="sliderEnd()"
+               (pointercancel)="sliderEnd()">
+            <div class="slider-fill" [style.width.%]="sliderPct(fila)"></div>
+            <div class="slider-thumb" [style.left.%]="sliderPct(fila)"></div>
+          </div>
+
+          <button class="stepper-btn"
+                  (click)="cambiarCantidad(fila, 1)"
+                  [disabled]="soloLectura">+</button>
+
+          <span class="gramaje-val">{{ fila.cantidad }}</span>
+        </div>
+      </div>
 
     </ion-card-content>
   </ion-card>
@@ -94,18 +108,31 @@
     <ion-card-header><ion-card-subtitle>Camarones Nítidos</ion-card-subtitle></ion-card-header>
     <ion-card-content>
 
-      <ion-item>
-        <ion-label>{{ filaNitido.tipo.nombre }}</ion-label>
-        <ion-input
-          type="number"
-          min="0"
-          inputmode="numeric"
-          [(ngModel)]="filaNitido.cantidad"
-          [disabled]="soloLectura"
-          slot="end"
-          style="max-width: 90px; text-align: right;">
-        </ion-input>
-      </ion-item>
+      <div class="gramaje-rows">
+        <div class="gramaje-row" [class.activo]="filaNitido!.cantidad > 0">
+
+          <span class="gramaje-label">{{ filaNitido!.tipo.nombre }}</span>
+
+          <button class="stepper-btn"
+                  (click)="cambiarCantidad(filaNitido!, -1)"
+                  [disabled]="soloLectura">−</button>
+
+          <div class="slider-track"
+               (pointerdown)="sliderStart($event, filaNitido!)"
+               (pointermove)="sliderMove($event, filaNitido!)"
+               (pointerup)="sliderEnd()"
+               (pointercancel)="sliderEnd()">
+            <div class="slider-fill" [style.width.%]="sliderPct(filaNitido!)"></div>
+            <div class="slider-thumb" [style.left.%]="sliderPct(filaNitido!)"></div>
+          </div>
+
+          <button class="stepper-btn"
+                  (click)="cambiarCantidad(filaNitido!, 1)"
+                  [disabled]="soloLectura">+</button>
+
+          <span class="gramaje-val">{{ filaNitido!.cantidad }}</span>
+        </div>
+      </div>
 
     </ion-card-content>
   </ion-card>

@@ -68,25 +68,39 @@
         <div class="grupo-header">
           <span class="grupo-badge">Talla {{ grupo.rango }}</span>
           <span class="grupo-subtotal">
-            Subtotal: <strong>{{ subtotal(grupo) }}</strong>
+            <strong>{{ subtotal(grupo) }}</strong>
             <span class="grupo-pct">{{ pctGrupo(grupo) }}</span>
           </span>
         </div>
 
-        <div class="pesos-grid">
-          <div
-            *ngFor="let item of grupo.items"
-            class="peso-item"
-            [class.tiene-datos]="item.cantidad > 0">
-            <span class="peso-label">{{ item.peso }} gr</span>
-            <ion-input
-              type="number"
-              min="0"
-              inputmode="numeric"
-              [(ngModel)]="item.cantidad"
-              [disabled]="soloLectura"
-              class="peso-input">
-            </ion-input>
+        <div class="grupo-barra">
+          <div class="grupo-barra-fill" [style.width]="pctGrupoNum(grupo) + '%'"></div>
+        </div>
+
+        <div class="gramaje-rows">
+          <div class="gramaje-row" [class.activo]="item.cantidad > 0"
+               *ngFor="let item of grupo.items">
+
+            <span class="gramaje-label">{{ item.peso }} gr</span>
+
+            <button class="stepper-btn"
+                    (click)="cambiarCantidad(item, -1)"
+                    [disabled]="soloLectura">−</button>
+
+            <div class="slider-track"
+                 (pointerdown)="sliderStart($event, item)"
+                 (pointermove)="sliderMove($event, item)"
+                 (pointerup)="sliderEnd()"
+                 (pointercancel)="sliderEnd()">
+              <div class="slider-fill" [style.width.%]="sliderPct(item)"></div>
+              <div class="slider-thumb" [style.left.%]="sliderPct(item)"></div>
+            </div>
+
+            <button class="stepper-btn"
+                    (click)="cambiarCantidad(item, 1)"
+                    [disabled]="soloLectura">+</button>
+
+            <span class="gramaje-val">{{ item.cantidad }}</span>
           </div>
         </div>
 

@@ -69,10 +69,10 @@
   <!-- ── Lista: Calidad Entero ──────────────────────────── -->
   <ng-container *ngIf="tipoActivo === 'entero'">
     <ion-list>
-      <ion-item-sliding *ngFor="let c of calidadesFiltradas">
+      <ion-item-sliding *ngFor="let c of calidadesFiltradas" #slidingItem>
         <!-- Swipe derecha → Declinar -->
         <ion-item-options side="start">
-          <ion-item-option *ngIf="c.estado === 'pendiente'" color="danger" (click)="declinar(c)">
+          <ion-item-option *ngIf="c.estado === 'pendiente'" color="danger" (click)="declinar(c, slidingItem)">
             <ion-icon name="close-circle-outline" slot="above"></ion-icon>
             Declinar
           </ion-item-option>
@@ -85,22 +85,23 @@
             <p>{{ c.fecha }} · Turno {{ c.turno }} · {{ c.tipo }}</p>
             <p *ngIf="c.idUsuarioRealiza">Realizado por: {{ nombreUsuario(c.idUsuarioRealiza) }}</p>
           </ion-label>
-          <!-- Botón Verificar (solo pendiente) -->
-          <ion-button *ngIf="c.estado === 'pendiente'" fill="solid" color="success" size="small" slot="end"
-            (click)="$event.stopPropagation(); validar(c)">
-            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-            Verificar
-          </ion-button>
-          <ion-badge *ngIf="c.estado !== 'pendiente'" slot="end" [color]="badgeEstado(c.estado)">{{ c.estado }}</ion-badge>
+          <div slot="end">
+            <ion-button *ngIf="c.estado === 'pendiente'" fill="solid" color="success" size="small"
+              (click)="$event.stopPropagation(); validar(c, slidingItem)">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              Verificar
+            </ion-button>
+            <span *ngIf="c.estado !== 'pendiente'" [ngClass]="['badge-pill', 'badge-' + badgeEstado(c.estado)]">{{ c.estado }}</span>
+          </div>
         </ion-item>
 
         <!-- Swipe izquierda → Editar / Eliminar -->
         <ion-item-options side="end">
-          <ion-item-option color="primary" (click)="nav.navigateForward('/calidad-entero-form/' + c.id)">
+          <ion-item-option color="primary" (click)="nav.navigateForward('/calidad-entero-form/' + c.id); slidingItem.close()">
             <ion-icon name="create-outline" slot="above"></ion-icon>
             Editar
           </ion-item-option>
-          <ion-item-option color="danger" (click)="eliminar(c)">
+          <ion-item-option color="danger" (click)="eliminar(c, slidingItem)">
             <ion-icon name="trash-outline" slot="above"></ion-icon>
             Eliminar
           </ion-item-option>
@@ -115,9 +116,9 @@
   <!-- ── Lista: Clasificación Tallas ───────────────────── -->
   <ng-container *ngIf="tipoActivo === 'tallas'">
     <ion-list>
-      <ion-item-sliding *ngFor="let c of clasificacionesFiltradas">
+      <ion-item-sliding *ngFor="let c of clasificacionesFiltradas" #slidingItem>
         <ion-item-options side="start">
-          <ion-item-option *ngIf="c.estado === 'pendiente'" color="danger" (click)="declinarTallas(c)">
+          <ion-item-option *ngIf="c.estado === 'pendiente'" color="danger" (click)="declinarTallas(c, slidingItem)">
             <ion-icon name="close-circle-outline" slot="above"></ion-icon>
             Declinar
           </ion-item-option>
@@ -130,20 +131,22 @@
             <p>{{ c.fecha }} · Turno {{ c.turno }} · {{ c.tipo }}</p>
             <p *ngIf="c.tallaDominante">Talla dominante: {{ c.tallaDominante }}</p>
           </ion-label>
-          <ion-button *ngIf="c.estado === 'pendiente'" fill="solid" color="success" size="small" slot="end"
-            (click)="$event.stopPropagation(); validarTallas(c)">
-            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-            Verificar
-          </ion-button>
-          <ion-badge *ngIf="c.estado !== 'pendiente'" slot="end" [color]="badgeEstado(c.estado)">{{ c.estado }}</ion-badge>
+          <div slot="end">
+            <ion-button *ngIf="c.estado === 'pendiente'" fill="solid" color="success" size="small"
+              (click)="$event.stopPropagation(); validarTallas(c, slidingItem)">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              Verificar
+            </ion-button>
+            <span *ngIf="c.estado !== 'pendiente'" [ngClass]="['badge-pill', 'badge-' + badgeEstado(c.estado)]">{{ c.estado }}</span>
+          </div>
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option color="primary" (click)="nav.navigateForward('/clasificacion-tallas-form/' + c.id)">
+          <ion-item-option color="primary" (click)="nav.navigateForward('/clasificacion-tallas-form/' + c.id); slidingItem.close()">
             <ion-icon name="create-outline" slot="above"></ion-icon>
             Editar
           </ion-item-option>
-          <ion-item-option color="danger" (click)="eliminarTallas(c)">
+          <ion-item-option color="danger" (click)="eliminarTallas(c, slidingItem)">
             <ion-icon name="trash-outline" slot="above"></ion-icon>
             Eliminar
           </ion-item-option>
@@ -158,9 +161,9 @@
   <!-- ── Lista: Muestras Sabor ─────────────────────────── -->
   <ng-container *ngIf="tipoActivo === 'sabor'">
     <ion-list>
-      <ion-item-sliding *ngFor="let s of saboresFiltrados">
+      <ion-item-sliding *ngFor="let s of saboresFiltrados" #slidingItem>
         <ion-item-options side="start">
-          <ion-item-option *ngIf="s.estado === 'pendiente'" color="danger" (click)="declinarSabor(s)">
+          <ion-item-option *ngIf="s.estado === 'pendiente'" color="danger" (click)="declinarSabor(s, slidingItem)">
             <ion-icon name="close-circle-outline" slot="above"></ion-icon>
             Declinar
           </ion-item-option>
@@ -173,20 +176,22 @@
             <p>Turno {{ s.turno }} · {{ s.tipo }}</p>
             <p *ngIf="s.idUsuarioRealiza">Realizado por: {{ nombreUsuario(s.idUsuarioRealiza) }}</p>
           </ion-label>
-          <ion-button *ngIf="s.estado === 'pendiente'" fill="solid" color="success" size="small" slot="end"
-            (click)="$event.stopPropagation(); validarSabor(s)">
-            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-            Verificar
-          </ion-button>
-          <ion-badge *ngIf="s.estado !== 'pendiente'" slot="end" [color]="badgeEstado(s.estado)">{{ s.estado }}</ion-badge>
+          <div slot="end">
+            <ion-button *ngIf="s.estado === 'pendiente'" fill="solid" color="success" size="small"
+              (click)="$event.stopPropagation(); validarSabor(s, slidingItem)">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              Verificar
+            </ion-button>
+            <span *ngIf="s.estado !== 'pendiente'" [ngClass]="['badge-pill', 'badge-' + badgeEstado(s.estado)]">{{ s.estado }}</span>
+          </div>
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option color="primary" (click)="nav.navigateForward('/muestra-sabor-form/' + s.id)">
+          <ion-item-option color="primary" (click)="nav.navigateForward('/muestra-sabor-form/' + s.id); slidingItem.close()">
             <ion-icon name="create-outline" slot="above"></ion-icon>
             Editar
           </ion-item-option>
-          <ion-item-option color="danger" (click)="eliminarSabor(s)">
+          <ion-item-option color="danger" (click)="eliminarSabor(s, slidingItem)">
             <ion-icon name="trash-outline" slot="above"></ion-icon>
             Eliminar
           </ion-item-option>

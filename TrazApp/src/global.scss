@@ -311,15 +311,46 @@ ion-refresher { --color: var(--tz-teal); }
 .animate-fade { animation: fadeIn 0.3s ease both; }
 
 @for $i from 1 through 12 {
-  ion-card:nth-child(#{$i}),
-  ion-item:nth-child(#{$i}) {
+  ion-card:nth-child(#{$i}) {
     animation: fadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) #{($i - 1) * 0.05}s both;
+  }
+  ion-item:nth-child(#{$i}) {
+    animation: fadeIn 0.3s ease #{($i - 1) * 0.04}s both;
   }
 }
 
 // ═══════════════════════════════════════════════════════════════
 //  Utilidades
 // ═══════════════════════════════════════════════════════════════
+
+// ── Slide rows (ion-item-sliding) ─────────────────────────────
+.slide-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+// Badge HTML puro (reemplaza ion-badge en listas deslizables)
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--tz-font-display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 1.4;
+
+  &.badge-success { background: var(--ion-color-success); color: var(--ion-color-success-contrast); }
+  &.badge-danger  { background: var(--ion-color-danger);  color: var(--ion-color-danger-contrast);  }
+  &.badge-warning { background: var(--ion-color-warning); color: var(--ion-color-warning-contrast); }
+  &.badge-medium  { background: var(--ion-color-medium);  color: var(--ion-color-medium-contrast);  }
+  &.badge-primary { background: var(--ion-color-primary); color: var(--ion-color-primary-contrast); }
+}
 
 .lote-code {
   font-family: var(--tz-font-mono);

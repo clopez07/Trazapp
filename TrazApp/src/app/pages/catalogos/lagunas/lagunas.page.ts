@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { AlertController, IonItemSliding, IonList, ModalController, ToastController } from '@ionic/angular';
 import { LagunaService } from 'src/app/services/laguna.service';
 import { FincaService } from 'src/app/services/finca.service';
 import { Laguna } from 'src/app/models/laguna.model';
 import { Finca } from 'src/app/models/finca.model';
 import { LagunaFormComponent } from './laguna-form/laguna-form.component';
+import { SlidingService } from 'src/app/services/sliding.service';
 
 @Component({
   selector: 'app-lagunas',
@@ -12,7 +13,8 @@ import { LagunaFormComponent } from './laguna-form/laguna-form.component';
   styleUrls: ['./lagunas.page.scss'],
   standalone: false,
 })
-export class LagunasPage implements OnInit {
+export class LagunasPage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(IonList) list!: IonList;
   lagunas: Laguna[] = [];
   fincas: Finca[] = [];
   busqueda = '';
@@ -32,13 +34,16 @@ export class LagunasPage implements OnInit {
     private fincaSvc: FincaService,
     private modal: ModalController,
     private alert: AlertController,
-    private toast: ToastController
+    private toast: ToastController,
+    private slidingService: SlidingService
   ) {}
 
   ngOnInit() {
     this.fincaSvc.getAll().subscribe(d => this.fincas = d);
     this.cargar();
   }
+  ngAfterViewInit() { this.slidingService.registerList(this.list); }
+  ngOnDestroy() { this.slidingService.unregisterList(this.list); }
 
   cargar(event?: any) {
     this.svc.getAll().subscribe(d => { this.lagunas = d; event?.target?.complete(); });
@@ -48,7 +53,8 @@ export class LagunasPage implements OnInit {
     return this.fincas.find(f => String(f.id) === String(id))?.nombre || '';
   }
 
-  async abrirForm(laguna?: Laguna) {
+  async abrirForm(laguna?: Laguna, slidingItem?: IonItemSliding) {
+    if (slidingItem) await slidingItem.close();
     const m = await this.modal.create({
       component: LagunaFormComponent,
       componentProps: { laguna },
@@ -64,11 +70,13 @@ export class LagunasPage implements OnInit {
     }
   }
 
-  async toggleEstado(l: Laguna) {
+  async toggleEstado(l: Laguna, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     this.svc.update(l.id!, { estado: l.estado === 'activo' ? 'inactivo' : 'activo' }).subscribe(() => this.cargar());
   }
 
-  async eliminar(l: Laguna) {
+  async eliminar(l: Laguna, slidingItem: IonItemSliding) {
+    await slidingItem.close();
     const a = await this.alert.create({
       header: 'Confirmar',
       message: `¿Eliminar "${l.nombre}"?`,

@@ -22,14 +22,16 @@ interface ItemTalla { peso: number; cantidad: number; }
 interface GrupoTalla { rango: string; items: ItemTalla[]; }
 
 const GRUPOS_DEF: { rango: string; pesos: number[] }[] = [
-  { rango: '10-20',  pesos: [104, 90, 76, 64, 51] },
-  { rango: '20-30',  pesos: [50, 44, 38, 34] },
-  { rango: '30-40',  pesos: [33, 32, 31, 30, 29, 28, 27, 26] },
-  { rango: '40-50',  pesos: [25, 24, 23, 22, 21, 20] },
-  { rango: '50-60',  pesos: [20, 19, 18, 17] },
-  { rango: '60-70',  pesos: [16, 15, 14] },
-  { rango: '70-80',  pesos: [13, 12, 11] },
-  { rango: '80-100', pesos: [10, 9, 8] },
+  { rango: '10-20',   pesos: [104, 90, 76, 64, 51] },
+  { rango: '20-30',   pesos: [50, 44, 38, 34] },
+  { rango: '30-40',   pesos: [33, 32, 31, 30, 29, 28, 27, 26] },
+  { rango: '40-50',   pesos: [25, 24, 23, 22, 21] },
+  { rango: '50-60',   pesos: [20, 19, 18, 17] },
+  { rango: '60-70',   pesos: [16, 15] },
+  { rango: '70-80',   pesos: [14, 13, 12, 11] },
+  { rango: '100-120', pesos: [10, 9] },
+  { rango: '120-150', pesos: [8, 7] },
+  { rango: '150-200', pesos: [6, 5, 4, 3, 2] },
 ];
 
 @Component({
@@ -103,6 +105,44 @@ export class ClasificacionTallasFormPage implements OnInit {
   get coberturaCalc(): string {
     if (!this.clasif.pesoMuestra || this.clasif.pesoMuestra === 0) return '—';
     return (this.totalCamarones / this.clasif.pesoMuestra * 100).toFixed(1) + '%';
+  }
+
+  pctGrupoNum(g: GrupoTalla): number {
+    if (!this.clasif.pesoMuestra || this.clasif.pesoMuestra === 0) return 0;
+    return Math.min(100, (this.subtotal(g) / this.clasif.pesoMuestra) * 100);
+  }
+
+  // ── Slider ─────────────────────────────────────────────────────
+  readonly SLIDER_MAX = 30;
+  private dragItem: ItemTalla | null = null;
+
+  sliderStart(event: PointerEvent, item: ItemTalla) {
+    if (this.soloLectura) return;
+    this.dragItem = item;
+    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+    this.applySlider(event);
+  }
+
+  sliderMove(event: PointerEvent, item: ItemTalla) {
+    if (this.dragItem !== item) return;
+    this.applySlider(event);
+  }
+
+  sliderEnd() { this.dragItem = null; }
+
+  private applySlider(event: PointerEvent) {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    if (this.dragItem) this.dragItem.cantidad = Math.round(ratio * this.SLIDER_MAX);
+  }
+
+  sliderPct(item: ItemTalla): number {
+    return Math.min(100, ((item.cantidad || 0) / this.SLIDER_MAX) * 100);
+  }
+
+  cambiarCantidad(item: ItemTalla, delta: number) {
+    if (this.soloLectura) return;
+    item.cantidad = Math.max(0, (item.cantidad || 0) + delta);
   }
 
   constructor(
