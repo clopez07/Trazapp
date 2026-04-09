@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000' // URL base del JSON Server (Api-Trazapp)
-  // apiUrl: 'http://192.168.X.X:3000' // (IP de tu PC) para pruebas en dispositivo físico
+  //apiUrl: 'http://172.20.10.4:3000' // (IP de tu PC) para pruebas en dispositivo físico
 };
 
 /*

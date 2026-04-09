@@ -21,7 +21,7 @@
       "estado": "activo"
     },
     {
-      "id": 5,
+      "id": "5",
       "nombre": "Cacesa",
       "estado": "activo"
     }
@@ -64,7 +64,7 @@
       "estado": "activo"
     },
     {
-      "id": 7,
+      "id": "7",
       "nombre": "Inmar",
       "idCliente": 5,
       "estado": "activo"
@@ -102,7 +102,7 @@
       "estado": "activo"
     },
     {
-      "id": 6,
+      "id": "6",
       "nombre": "05",
       "idFinca": 7,
       "estado": "activo"
@@ -424,6 +424,26 @@
       "correcciones": "",
       "latitud": 13.291811791642623,
       "longitud": -87.15197058303194
+    },
+    {
+      "id": "1775691580974",
+      "loteInterno": "R-2026-04-08-0001",
+      "fecha": "2026-04-08",
+      "turno": "B",
+      "idCliente": "5",
+      "idFinca": "7",
+      "idLaguna": "6",
+      "fechaCosecha": "2026-04-08",
+      "horaCosecha": "17:38",
+      "horaRecibido": "20:38",
+      "remisionSAG": "IBO-0393929",
+      "numeroAutorizacion": "39393-2220-A-",
+      "idUsuarioRealiza": "5",
+      "idUsuarioVerifica": 0,
+      "observaciones": "prueba",
+      "correcciones": "",
+      "latitud": 13.309302035064713,
+      "longitud": -87.18964069310772
     }
   ],
   "detalle_bins": [
@@ -610,6 +630,30 @@
       "cantidadLibras": 200,
       "horaInicioProceso": "14:17",
       "estado": "procesado"
+    },
+    {
+      "id": "1775691580996",
+      "idRecepcion": 1775691580974,
+      "numeroBin": "1",
+      "cantidadLibras": 100,
+      "horaInicioProceso": "17:39",
+      "estado": "procesado"
+    },
+    {
+      "id": "1775691581007",
+      "idRecepcion": 1775691580974,
+      "numeroBin": "2",
+      "cantidadLibras": 200,
+      "horaInicioProceso": "17:39",
+      "estado": "procesado"
+    },
+    {
+      "id": "1775691581015",
+      "idRecepcion": 1775691580974,
+      "numeroBin": "3",
+      "cantidadLibras": 95,
+      "horaInicioProceso": "17:39",
+      "estado": "procesado"
     }
   ],
   "calidad_entero": [
@@ -731,6 +775,26 @@
       "estado": "verificado",
       "latitud": 13.291862524208012,
       "longitud": -87.15189155828654,
+      "idUsuarioVerifica": "1"
+    },
+    {
+      "id": "1775694865572",
+      "fecha": "2026-04-09",
+      "turno": "B",
+      "tipo": "proceso",
+      "idRecepcion": "1775691580974",
+      "loteInterno": "R-2026-04-08-0001",
+      "idCliente": "5",
+      "idFinca": "7",
+      "idLaguna": "6",
+      "gramos": 22,
+      "observacion": "Prueba",
+      "correccion": "",
+      "supervisor": "",
+      "idUsuarioRealiza": "3",
+      "estado": "verificado",
+      "latitud": 13.309222966277751,
+      "longitud": -87.18964736339369,
       "idUsuarioVerifica": "1"
     }
   ],
@@ -1503,6 +1567,132 @@
       "idCalidad": 1775506936822,
       "idTipoDefecto": "21",
       "cantidad": 50,
+      "esNitido": true
+    },
+    {
+      "id": "1775694865594",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "1",
+      "cantidad": 13,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865606",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "2",
+      "cantidad": 6,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865615",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "3",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865622",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "4",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865629",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "5",
+      "cantidad": 7,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865636",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "6",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865643",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "7",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865650",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "8",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865657",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "9",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865663",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "10",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865668",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "11",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865675",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "14",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865682",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "15",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865688",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "16",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865693",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "17",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865699",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "18",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865706",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "19",
+      "cantidad": 0,
+      "esNitido": false
+    },
+    {
+      "id": "1775694865715",
+      "idCalidad": 1775694865572,
+      "idTipoDefecto": "21",
+      "cantidad": 38,
       "esNitido": true
     }
   ],
@@ -3009,6 +3199,26 @@
       "latitud": 13.291723305750702,
       "longitud": -87.15196227042482,
       "fechaFoto": "2026-04-06T20:28:00.585Z"
+    },
+    {
+      "id": "1775691581021",
+      "idRegistro": 1775691580974,
+      "tipoRegistro": "recepcion",
+      "pathLocal": "IMG_1775691572007.jpeg",
+      "nombreArchivo": "IMG_1775691572007.jpeg",
+      "latitud": 13.309302035064713,
+      "longitud": -87.18964069310772,
+      "fechaFoto": "2026-04-08T23:39:41.021Z"
+    },
+    {
+      "id": "1775694865722",
+      "idRegistro": 1775694865572,
+      "tipoRegistro": "calidad",
+      "pathLocal": "IMG_1775694863102.jpeg",
+      "nombreArchivo": "IMG_1775694863102.jpeg",
+      "latitud": 13.309222966277751,
+      "longitud": -87.18964736339369,
+      "fechaFoto": "2026-04-09T00:34:25.722Z"
     }
   ]
 }

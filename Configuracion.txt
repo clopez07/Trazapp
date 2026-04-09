@@ -1,0 +1,7 @@
+Proyecto Tercer Parcial: 
+    -TrazApp
+        - API-TrazApp
+        json-server --watch db.json  --port 3000 
+
+        - TrazaApp
+        ionic serve
